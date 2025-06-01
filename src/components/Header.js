@@ -1,14 +1,13 @@
 import React from "react";
 import "../assets/menuPage.css";
 import { MenuOption } from "../data/menuData.js";
-import { useParams } from 'react-router-dom';
-
+import { useParams } from "react-router-dom";
 
 export default function Header() {
-  const { tableId } = useParams();
+  const { tableId, category } = useParams();
 
   return (
-    <header id="sticky-header"className="header">
+    <header id="sticky-header" className="header">
       <div className="header-top">
         <div className="logo-section">
           <img
@@ -23,17 +22,25 @@ export default function Header() {
 
       <section className="categories">
         <div className="categories-container">
-          {MenuOption?.map((item, index) => (
-            <div key={index} className="category">
-              <a href={`/menu/${tableId}/${item.url}`}>
-                <img
-                  src={`https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`}
-                  alt={item.name}
-                />
-                <div className="category-name">{item.name}</div>
-              </a>
-            </div>
-          ))}
+          {MenuOption?.map((item, index) => {
+            const isActive =
+              item.url === category || (!category && item.url === "home");
+
+            return (
+              <div
+                key={index}
+                className={`category ${isActive ? "active" : ""}`}
+              >
+                <a href={`/menu/${tableId}/${item.url}`}>
+                  <img
+                    src={`https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`}
+                    alt={item.name}
+                  />
+                  <div className="category-name">{item.name}</div>
+                </a>
+              </div>
+            );
+          })}
         </div>
       </section>
     </header>

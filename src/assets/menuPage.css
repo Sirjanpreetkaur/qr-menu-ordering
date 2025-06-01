@@ -60,6 +60,7 @@
 .category {
   text-align: center;
   min-width: 80px;
+  padding: 12px;
 }
 
 .category img {
@@ -258,6 +259,20 @@
   border: none;
   border-radius: 6px;
 }
+.category.active {
+    background-color: #fff8dc;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 80px;
+  transition: background-color 0.3s ease;
+  padding: 12px;
+}
+
+
+.category:hover {
+  opacity: 0.8;
+}
+
 
 
 
