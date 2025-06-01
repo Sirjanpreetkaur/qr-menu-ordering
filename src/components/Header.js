@@ -8,6 +8,9 @@ export default function Header() {
 
   return (
     <header id="sticky-header" className="header">
+      <div className="table-banner">
+        You are placing an order for <strong>Table {tableId}</strong>
+      </div>
       <div className="header-top">
         <div className="logo-section">
           <img

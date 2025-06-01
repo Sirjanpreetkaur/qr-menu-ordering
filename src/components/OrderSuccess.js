@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import successSound from "../assets/sound/success.wav"; // You must add this file
-import { motion } from "framer-motion"; // animation library
+import successSound from "../assets/sound/success.wav";
+import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 
 export default function OrderSuccess({ cartItems, onBack }) {
+  const { tableId } = useParams();
+
+  // Generate a unique order ID
+  const orderId = `ORD-${Date.now().toString().slice(-6)}`;
+
+  // Play success sound on mount
   useEffect(() => {
     const audio = new Audio(successSound);
     audio.play();
@@ -17,8 +24,23 @@ export default function OrderSuccess({ cartItems, onBack }) {
       transition={{ duration: 0.4 }}
     >
       <FaCheckCircle size={60} color="#28a745" />
-      <h2>Order Placed Successfully!</h2>
-      <p>Thank you for your order. Here's what you've ordered:</p>
+      <h2>Thank You!</h2>
+
+      <p style={{ fontSize: "0.95rem", marginBottom: "8px" }}>
+        <strong>Order ID:</strong> {orderId}
+      </p>
+
+      <p style={{ marginTop: "10px", fontSize: "1rem", color: "#333", fontWeight: "500" }}>
+        Your order for <strong>Table {tableId}</strong> has been placed and is being prepared.
+      </p>
+
+      <p style={{ fontSize: "0.95rem", color: "#666", marginBottom: "20px" }}>
+        Estimated preparation time: <strong>15–20 minutes</strong>
+      </p>
+
+      <p style={{ fontSize: "1rem", marginBottom: "12px" }}>
+        Here's what you've ordered:
+      </p>
 
       <ul className="order-items">
         {cartItems.map((item, index) => (
@@ -31,18 +53,17 @@ export default function OrderSuccess({ cartItems, onBack }) {
         ))}
       </ul>
 
-      <div className="order-total">
+      <div className="order-total" style={{ marginTop: "20px" }}>
         <strong>
           Total: ₹
           {cartItems.reduce(
-            (sum, item) =>
-              sum + parseInt(item.price.replace("₹", "")) * item.qty,
+            (sum, item) => sum + parseInt(item.price.replace("₹", "")) * item.qty,
             0
           )}
         </strong>
       </div>
 
-      <button className="checkout-btn" onClick={onBack}>
+      <button className="checkout-btn" style={{ marginTop: "24px" }} onClick={onBack}>
         Go Back to Menu
       </button>
     </motion.div>
