@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 
 export default function MenuGrid({ onItemAddClick }) {
   const { category, tableId } = useParams();
-  const filteredItems =
-    category === "home"
-      ? menuItems
-      : menuItems.filter((item) => item.category === category);
+      const filteredItems =
+  !category || category === "home"
+    ? menuItems
+    : menuItems.filter((item) => item.category === category);
+
   console.log(",,,category", category, ",,,tableId", tableId);
   return (
     <div className="menu-grid-wrapper">

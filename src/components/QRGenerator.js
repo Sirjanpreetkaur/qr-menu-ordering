@@ -11,7 +11,7 @@ export default function QRGenerator() {
       <h2>Table QR Codes</h2>
       <div className="qr-grid">
         {tables.map((tableId) => {
-          const url = `${window.location.origin}/menu/${tableId}/all`;
+          const url = `${window.location.origin}/menu/${tableId}/home`;
           return (
             <div key={tableId} className="qr-card">
               {/* Clicking the QR—or scanning on mobile—goes to /menu/:tableId */}
