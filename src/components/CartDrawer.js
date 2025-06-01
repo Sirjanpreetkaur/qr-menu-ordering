@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
-export default function CartDrawer({ cartItems, onClose, onUpdateQty }) {
+  export default function CartDrawer({ cartItems, onClose, onUpdateQty, onCheckout }) {
+
   const drawerRef = useRef();
 
   useEffect(() => {
@@ -49,7 +50,8 @@ export default function CartDrawer({ cartItems, onClose, onUpdateQty }) {
               0
             )}
           </strong>
-          <button className="checkout-btn" onClick={onClose}>Checkout</button>
+          <button className="checkout-btn" onClick={onCheckout}>Checkout</button>
+
         </div>
       </div>
     </div>
