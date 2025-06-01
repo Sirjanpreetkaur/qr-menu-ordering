@@ -1,0 +1,263 @@
+#sticky-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    transition: transform 1s ease;
+    background-color: var(--ik-header-bg-color);
+    color: var(--ik-header-bg-high-contrast-color);
+    z-index: var(--ik-sticky-header-z-index);
+    will-change: transform;
+    contain: content;
+}
+.header {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 45px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.logo {
+  height: 30px;
+}
+
+.restaurant-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.language-btn {
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.categories {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.categories-container {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.category {
+  text-align: center;
+  min-width: 80px;
+}
+
+.category img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.category a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-name {
+  font-size: 0.8rem;
+  margin-top: 4px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #333;
+  font-weight: 700;
+}
+
+.menu-grid-wrapper {
+  padding-bottom: 160px;
+  margin-top: 160px;
+}
+
+.menu-grid-section {
+  padding: 20px;
+}
+
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.menu-card {
+  text-decoration: none;
+  color: inherit;
+  flex: 1 1 calc(33.333% - 20px);
+  min-width: 280px;
+}
+
+.menu-card-inner {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-card-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-card-btn {
+  padding: 5px;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-card-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.menu-card-top {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.menu-card-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.menu-card-price-bottom {
+  text-align: right;
+  font-weight: bold;
+  margin-top: auto;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  
+}
+
+.modal-box {
+  background: white;
+  padding: 20px;
+  max-width: 300px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.modal-img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-option {
+  margin: 15px 0;
+}
+
+.modal-add-btn {
+  background-color: #333;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cart-drawer-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.cart-drawer {
+  background: white;
+  width: 100%;
+  max-height: 70%;
+  overflow-y: auto;
+  padding: 20px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cart-item-controls button {
+  padding: 4px 8px;
+  margin: 0 5px;
+}
+
+.cart-footer {
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-btn {
+  padding: 10px 16px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+
+
