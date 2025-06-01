@@ -44,11 +44,13 @@ function handleCheckout() {
       .filter(Boolean);
     setCartItems(updated);
   }
-
+function handleBackToMenu() {
+  setShowSuccess(false);
+}
   return (
     <>
       {showSuccess ? (
-        <OrderSuccess cartItems={cartItems} />
+        <OrderSuccess cartItems={cartItems} onBack={handleBackToMenu}/>
       ) : (
         <>
           <Header />
