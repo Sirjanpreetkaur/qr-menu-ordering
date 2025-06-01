@@ -22,8 +22,11 @@ export default function OrderSuccess({ cartItems, onBack }) {
 
       <ul className="order-items">
         {cartItems.map((item, index) => (
-          <li key={index}>
-            {item.qty}x {item.name}
+          <li key={index} className="order-item-row">
+            <img src={item.image} alt={item.name} className="order-item-img" />
+            <div className="order-item-text">
+              <strong>{item.qty}x</strong> {item.name}
+            </div>
           </li>
         ))}
       </ul>

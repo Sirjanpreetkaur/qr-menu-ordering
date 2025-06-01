@@ -8,14 +8,18 @@ export default function MenuPage() {
 const [cartItems, setCartItems] = useState([]);
 const [isCartOpen, setIsCartOpen] = useState(false);
 const [showSuccess, setShowSuccess] = useState(false);
+const [placedItems, setPlacedItems] = useState([]);
+
 
 function handleCheckout() {
-  setIsCartOpen(false); // close drawer
+  setIsCartOpen(false);
   setTimeout(() => {
-    setShowSuccess(true);  // show success screen
-    setCartItems([]);      // clear cart
-  }, 300); // optional smooth transition
+    setPlacedItems(cartItems);      // ✅ Store before clearing
+    setShowSuccess(true);           // ✅ Show success screen
+    setCartItems([]);               // ✅ Clear only after copying
+  }, 300);
 }
+
 
 
   function handleAddToCart(item) {
@@ -50,7 +54,7 @@ function handleBackToMenu() {
   return (
     <>
       {showSuccess ? (
-        <OrderSuccess cartItems={cartItems} onBack={handleBackToMenu}/>
+        <OrderSuccess  cartItems={placedItems} onBack={handleBackToMenu}/>
       ) : (
         <>
           <Header />

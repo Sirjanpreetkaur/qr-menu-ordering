@@ -357,7 +357,7 @@
   padding: 40px 20px;
   text-align: center;
   max-width: 500px;
-  margin: 40px auto;
+  margin: 20px;
   background: #f8fff4;
   border: 1px solid #d4edda;
   border-radius: 10px;
@@ -392,6 +392,25 @@
 
 .checkout-btn:hover {
   background-color: #555;
+}
+.order-item-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.order-item-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.order-item-text {
+  font-size: 0.95rem;
+  color: #333;
 }
 
 
