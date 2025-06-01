@@ -1,50 +1,46 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import "../assets/menuPage.css";
-import Header from "./Header.js";
-import MenuGrid from "./MenuGrid.js";
-import ItemModal from "./ItemModal";
-import CartDrawer from "./CartDrawer.js";
+import Header from "./Header";
+import MenuGrid from "./MenuGrid";
+import CartDrawer from "./CartDrawer";
 
 export default function MenuPage() {
-  const [cart, setCart] = useState({});
-  const [selectedItem, setSelectedItem] = useState(null); // for modal
-  const [showCartDrawer, setShowCartDrawer] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-const addToCart = (item, options = {}) => {
-  const id = item.id;
-  setCart(prev => {
-    const prevQty = prev[id]?.quantity || 0;
-    return {
-      ...prev,
-      [id]: {
-        ...item,
-        ...options,
-        quantity: prevQty + 1,
+  function handleAddToCart(item) {
+    const existing = cartItems.find(i => i.name === item.name);
+    if (existing) {
+      setCartItems(cartItems.map(i =>
+        i.name === item.name ? { ...i, qty: i.qty + 1 } : i
+      ));
+    } else {
+      setCartItems([...cartItems, { ...item, qty: 1 }]);
+    }
+    setIsCartOpen(true);
+  }
+
+  function handleUpdateQty(item, change) {
+    const updated = cartItems.map(i => {
+      if (i.name === item.name) {
+        const newQty = i.qty + change;
+        return newQty > 0 ? { ...i, qty: newQty } : null;
       }
-    };
-  });
-  setSelectedItem(null);
-  setShowCartDrawer(true); // show drawer when item is added
-};
-
+      return i;
+    }).filter(Boolean);
+    setCartItems(updated);
+  }
 
   return (
     <>
       <Header />
-      <MenuGrid onItemAddClick={setSelectedItem} />
-      {selectedItem && (
-        <ItemModal item={selectedItem} onClose={() => setSelectedItem(null)} onAdd={addToCart} />
-        
+      <MenuGrid onItemAddClick={handleAddToCart} />
+      {isCartOpen && (
+        <CartDrawer
+          cartItems={cartItems}
+          onClose={() => setIsCartOpen(false)}
+          onUpdateQty={handleUpdateQty}
+        />
       )}
-      {showCartDrawer && (
-  <CartDrawer
-    cart={cart}
-    setCart={setCart}
-    onClose={() => setShowCartDrawer(false)}
-  />
-)}
-
     </>
-     );
+  );
 }
