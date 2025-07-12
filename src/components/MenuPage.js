@@ -20,6 +20,7 @@ function handleCheckout() {
   }, 300);
 }
 
+    console.log("cartItems:", cartItems);
 
 
   function handleAddToCart(item) {
@@ -59,7 +60,7 @@ function handleBackToMenu() {
         <>
           <Header />
           <MenuGrid onItemAddClick={handleAddToCart} />
-          {isCartOpen && (
+          {isCartOpen && cartItems?.length>0&& (
             <CartDrawer
               cartItems={cartItems}
               onClose={() => setIsCartOpen(false)}
