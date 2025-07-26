@@ -15,10 +15,10 @@ export default function Header() {
         <div className="logo-section">
           <img
             src="https://instalacarte.com/customer-logo/23/66c49c906aeeda31561440bd1be008e9.png"
-            alt="wagamama"
+            alt="Debuggers Da Dhabba"
             className="logo"
           />
-          <h1 className="restaurant-name">wagamama</h1>
+          <h1 className="restaurant-name">Debuggers Da Dhabba</h1>
         </div>
         {/* <button className="language-btn">English</button> */}
       </div>
@@ -36,7 +36,7 @@ export default function Header() {
               >
                 <a href={`/menu/${tableId}/${item.url}`}>
                   <img
-                    src={`https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`}
+                    src={item.path??`https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`}
                     alt={item.name}
                   />
                   <div className="category-name">{item.name}</div>
