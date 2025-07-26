@@ -21,7 +21,7 @@ export default function Header() {
           <h1 className="restaurant-name">Debuggers Da Dhabba</h1>
         </div>
         {/* <button className="language-btn">English</button> */}
-      </div>
+      </div> 
 
       <section className="categories">
         <div className="categories-container">
