@@ -101,7 +101,7 @@ export const menuItems = [
   {
     name: "bombay keema",
     price: "₹450",
-    image: "https://www.cookwithmanali.com/wp-content/uploads/2020/04/Keema-Pav-500x500.jpg",
+    image: "https://www.nicepng.com/png/detail/270-2703240_mutton-keema-with-pav-pav-bhaji.png",
     description: "spicy keema served on crispy naan – a Delhi ode to Bombay street food.",
     link: "/menu/indian/small-plates/mutton/keema-naan/",
     category: "small-plates"
