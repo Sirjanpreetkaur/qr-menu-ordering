@@ -43,7 +43,7 @@ export default function MenuPage() {
     }
 
     const options = {
-      key: "rzp_live_8xfLoeGJ5OqzWY", // Replace with your Razorpay key
+      key: "rzp_test_1F01hwlCTCh3v0", // Replace with your Razorpay key
       amount: amount * 100, // in paise
       currency: "INR",
       name: "Restaurant Order",
