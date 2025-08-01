@@ -3,6 +3,7 @@ import Header from "./Header";
 import MenuGrid from "./MenuGrid";
 import CartDrawer from "./CartDrawer";
 import OrderSuccess from "./OrderSuccess";
+import RazorpayUPIPayment from "./RazorpayUPIPayment"
 
 export default function MenuPage() {
 const [cartItems, setCartItems] = useState([]);
@@ -59,7 +60,9 @@ function handleBackToMenu() {
       ) : (
         <>
           <Header />
+
           <MenuGrid onItemAddClick={handleAddToCart} />
+          <RazorpayUPIPayment />;
           {isCartOpen && cartItems?.length>0&& (
             <CartDrawer
               cartItems={cartItems}
