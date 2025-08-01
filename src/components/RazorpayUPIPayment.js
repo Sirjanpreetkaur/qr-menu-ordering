@@ -1,98 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const RazorpayUPIPayment = () => {
-  const [scriptLoaded, setScriptLoaded] = useState(false);
+export default function RazorpayUPIPayment({ amount, cartItems }) {
+  const { tableId } = useParams();
 
-  // Dynamically load Razorpay script
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
-
-    script.onload = () => setScriptLoaded(true);
-    script.onerror = () => {
-      console.error("Razorpay SDK failed to load");
-      alert("Failed to load payment SDK. Please try refreshing.");
-    };
-
     document.body.appendChild(script);
+
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
   const handlePayment = () => {
-    if (!scriptLoaded) {
-      alert("Payment SDK not loaded yet. Please wait.");
+    if (amount <= 0) {
+      alert("Cart is empty. Please add items before proceeding.");
       return;
     }
 
     const options = {
-      key: "HIQ4yiRGEH5JVd9AlZeae3yc", // ⚠️ Replace with your test/public key
-      amount: 50000, // 500 INR in paise
+      key: "YOUR_RAZORPAY_KEY_ID", // 🔁 Replace with your Razorpay key
+      amount: amount * 100, // 💰 Razorpay accepts amount in paise
       currency: "INR",
-      name: "Your Company",
-      description: "Test UPI Transaction",
-      image: "https://yourdomain.com/logo.png", // Optional
+      name: "Restaurant Order",
+      description: `Table ${tableId} order`,
+      image: "/logo192.png", // optional - you can use your logo
       handler: function (response) {
-        alert(`Payment successful! ID: ${response.razorpay_payment_id}`);
+        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+        console.log("Payment success:", response);
+        // Optional: Send to backend here for verification or saving order
       },
       prefill: {
-        name: "Test User",
-        email: "test@example.com",
-        contact: "9123456789",
+        name: "",
+        email: "",
+        contact: "",
+      },
+      notes: {
+        table_id: tableId,
+        order_items: cartItems.map((item) => `${item.qty}x ${item.name}`).join(", "),
       },
       theme: {
-        color: "#3399cc",
-      },
-      method: {
-        upi: true,
-        card: false,
-        netbanking: false,
-        wallet: false,
+        color: "#528FF0",
       },
     };
 
     const rzp = new window.Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      console.error("Payment failed:", response.error);
+      alert("Payment failed. Please try again.");
+    });
+
     rzp.open();
   };
 
   return (
-    <div
-      style={{
-        fontFamily: "sans-serif",
-        textAlign: "center",
-        marginTop: "100px",
-      }}
-    >
-      <h2>Pay ₹500 via UPI</h2>
-      <button
-        onClick={handlePayment}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          backgroundColor: "#0a8fdc",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-        }}
-      >
-        Pay Now
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <button className="checkout-btn" onClick={handlePayment}>
+        Pay Now with UPI
       </button>
-
-      {/* Optional Fallback UPI link */}
-      <div style={{ marginTop: "20px" }}>
-        <p>If the payment window doesn't open, use the UPI link below:</p>
-        <a
-          href="upi://pay?pa=9958912322@ybl&pn=Your+Name&am=500.00&cu=INR"
-          style={{ color: "#0a8fdc", textDecoration: "underline" }}
-        >
-          Pay using UPI app
-        </a>
-      </div>
     </div>
   );
-};
-
-export default RazorpayUPIPayment;
+}
