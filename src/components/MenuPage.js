@@ -9,6 +9,7 @@ export default function MenuPage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [placedItems, setPlacedItems] = useState([]);
+const [couponCode, setCouponCode] = useState("");
 
 
   useEffect(() => {
@@ -23,16 +24,8 @@ export default function MenuPage() {
   }, []);
 
 
-  const totalAmount = useMemo(() => {
-    return cartItems.reduce(
-      (sum, item) =>
-        sum + parseInt(item.price.replace("₹", "")) * item.qty,
-      0
-    );
-  }, [cartItems]);
-
   function handleCheckout() {
-    const amount = cartItems.reduce(
+    let amount = cartItems.reduce(
       (sum, item) => sum + parseInt(item.price.replace("₹", "")) * item.qty,
       0
     );
@@ -42,13 +35,17 @@ export default function MenuPage() {
       return;
     }
 
+    if(couponCode){
+      amount=1
+    }
+
     const options = {
       key: "rzp_test_1F01hwlCTCh3v0", // Replace with your Razorpay key
       amount: amount * 100, // in paise
       currency: "INR",
-      name: "Restaurant Order",
+      name: "Debuggers Da Dhabba",
       description: "Food order payment",
-      image: "/logo192.png", // optional logo
+      image: "/logo192.png", 
       handler: function (response) {
         alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
         // Proceed to show success
@@ -67,15 +64,29 @@ export default function MenuPage() {
       notes: {
         order_items: cartItems.map((item) => `${item.qty}x ${item.name}`).join(", "),
       },
+      method: {
+    netbanking: false,
+    card: true,
+    upi: true,
+    wallet: false,
+    emi: false,         
+    paylater: false,  
+  },
       theme: {
         color: "#528FF0",
       },
+       modal: {
+    ondismiss: function () {
+      console.warn("⚠️ Razorpay payment popup was closed by the user.");
+      alert("Payment window closed. You can retry payment from your cart.");
+      setIsCartOpen(true);   
+    },
+  },
     };
 
     const rzp = new window.Razorpay(options);
     rzp.on("payment.failed", function (response) {
       console.error("Payment failed:", response.error);
-      alert("Payment failed. Please try again.");
     });
 
     rzp.open();
@@ -126,7 +137,8 @@ export default function MenuPage() {
               onClose={() => setIsCartOpen(false)}
               onUpdateQty={handleUpdateQty}
               onCheckout={handleCheckout}
-              totalAmount={totalAmount}
+              setCouponCode={setCouponCode}
+              couponCode={couponCode}
             />
           )}
         </>

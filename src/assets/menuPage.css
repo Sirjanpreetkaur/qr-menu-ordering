@@ -477,6 +477,37 @@
   margin: 10px 20px;
   border-radius: 6px;
 }
+
+.coupon-section {
+  margin-top: 16px;
+}
+
+.coupon-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.coupon-checkbox-label input {
+  cursor: pointer;
+}
+
+.coupon-message {
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.coupon-message.success {
+  color: green;
+}
+
+.coupon-message.error {
+  color: red;
+}
+
 @media screen and (max-width: 576px) {
   .menu-card-img{
     width: auto;
