@@ -9,20 +9,22 @@ export default function MenuPage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [placedItems, setPlacedItems] = useState([]);
-const [couponCode, setCouponCode] = useState("");
+  const [couponCode, setCouponCode] = useState("");
 
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    document.body.appendChild(script);
+  const script = document.createElement("script");
+  script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  script.async = true;
+  document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  // Remove all query parameters from URL
+  window.history.replaceState({}, document.title, window.location.pathname);
 
+  return () => {
+    document.body.removeChild(script);
+  };
+}, []);
 
   function handleCheckout() {
     let amount = cartItems.reduce(
@@ -35,8 +37,8 @@ const [couponCode, setCouponCode] = useState("");
       return;
     }
 
-    if(couponCode){
-      amount=1
+    if (couponCode) {
+      amount = 1
     }
 
     const options = {
@@ -45,9 +47,10 @@ const [couponCode, setCouponCode] = useState("");
       currency: "INR",
       name: "Debuggers Da Dhabba",
       description: "Food order payment",
-      image: "/logo192.png", 
+      image: "/logo192.png",
       handler: function (response) {
-        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+        const newUrl = `${window.location.pathname}?payment_id=${response.razorpay_payment_id}`;
+        window.history.pushState({}, '', newUrl);
         // Proceed to show success
         setIsCartOpen(false);
         setTimeout(() => {
@@ -65,23 +68,23 @@ const [couponCode, setCouponCode] = useState("");
         order_items: cartItems.map((item) => `${item.qty}x ${item.name}`).join(", "),
       },
       method: {
-    netbanking: false,
-    card: true,
-    upi: true,
-    wallet: false,
-    emi: false,         
-    paylater: false,  
-  },
+        netbanking: false,
+        card: true,
+        upi: true,
+        wallet: false,
+        emi: false,
+        paylater: false,
+      },
       theme: {
         color: "#528FF0",
       },
-       modal: {
-    ondismiss: function () {
-      console.warn("⚠️ Razorpay payment popup was closed by the user.");
-      alert("Payment window closed. You can retry payment from your cart.");
-      setIsCartOpen(true);   
-    },
-  },
+      modal: {
+        ondismiss: function () {
+          console.warn("⚠️ Razorpay payment popup was closed by the user.");
+          alert("Payment window closed. You can retry payment from your cart.");
+          setIsCartOpen(true);
+        },
+      },
     };
 
     const rzp = new window.Razorpay(options);

@@ -1,19 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import successSound from "../assets/sound/success.wav";
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 export default function OrderSuccess({ cartItems, onBack }) {
   const { tableId } = useParams();
+  const location = useLocation();
+  const [paymentId, setPaymentId] = useState(null);
 
-  // Generate a unique order ID
-  const orderId = `ORD-${Date.now().toString().slice(-6)}`;
+  // Extract payment ID from URL
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const idFromUrl = params.get("payment_id");
+    console.log("Payment ID from URL:", idFromUrl); // Debug log
+    if (idFromUrl) {
+      setPaymentId(idFromUrl);
+    }
+  }, [location.search]);
 
   // Play success sound on mount
   useEffect(() => {
     const audio = new Audio(successSound);
-    audio.play();
+    audio.play().catch(error => {
+      console.log("Audio play failed:", error);
+    });
   }, []);
 
   return (
@@ -26,9 +37,12 @@ export default function OrderSuccess({ cartItems, onBack }) {
       <FaCheckCircle size={60} color="#28a745" />
       <h2>Thank You!</h2>
 
-      <p style={{ fontSize: "0.95rem", marginBottom: "8px" }}>
-        <strong>Order ID:</strong> {orderId}
-      </p>
+      {/* Fixed: Removed redundant paragraph wrapper and fixed conditional rendering */}
+      {paymentId && (
+        <p style={{ fontSize: "0.95rem", marginBottom: "8px" }}>
+          <strong>Payment ID:</strong> {paymentId}
+        </p>
+      )}
 
       <p style={{ marginTop: "10px", fontSize: "1rem", color: "#333", fontWeight: "500" }}>
         Your order for <strong>Table {tableId}</strong> has been placed and is being prepared.
