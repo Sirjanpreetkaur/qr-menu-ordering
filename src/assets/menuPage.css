@@ -6,13 +6,13 @@
   gap: 30px;
 }
 .qr-card {
-    width: 241px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  width: 241px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.qr-container h2{
+.qr-container h2 {
   text-align: center;
 }
 #sticky-header {
@@ -144,7 +144,7 @@
   border: none;
   cursor: pointer;
 }
-.menu-card-img{
+.menu-card-img {
   height: 350px;
 }
 .menu-card-img img {
@@ -509,9 +509,8 @@
 }
 
 @media screen and (max-width: 576px) {
-  .menu-card-img{
+  .menu-card-img {
     width: auto;
     height: auto;
   }
-
 }

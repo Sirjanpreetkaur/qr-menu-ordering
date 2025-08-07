@@ -1,7 +1,7 @@
-import React from "react";
-import "../assets/menuPage.css";
-import { MenuOption } from "../data/menuData.js";
-import { useParams } from "react-router-dom";
+import React from 'react';
+import '../assets/menuPage.css';
+import { MenuOption } from '../data/menuData.js';
+import { useParams } from 'react-router-dom';
 
 export default function Header() {
   const { tableId, category } = useParams();
@@ -21,22 +21,25 @@ export default function Header() {
           <h1 className="restaurant-name">Debuggers Da Dhabba</h1>
         </div>
         {/* <button className="language-btn">English</button> */}
-      </div> 
+      </div>
 
       <section className="categories">
         <div className="categories-container">
           {MenuOption?.map((item, index) => {
             const isActive =
-              item.url === category || (!category && item.url === "home");
+              item.url === category || (!category && item.url === 'home');
 
             return (
               <div
                 key={index}
-                className={`category ${isActive ? "active" : ""}`}
+                className={`category ${isActive ? 'active' : ''}`}
               >
                 <a href={`/menu/${tableId}/${item.url}`}>
                   <img
-                    src={item.path??`https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`}
+                    src={
+                      item.path ??
+                      `https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`
+                    }
                     alt={item.name}
                   />
                   <div className="category-name">{item.name}</div>

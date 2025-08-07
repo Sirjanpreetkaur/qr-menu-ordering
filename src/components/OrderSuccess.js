@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
-import successSound from "../assets/sound/success.wav";
-import { motion } from "framer-motion";
-import { useParams, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { FaCheckCircle } from 'react-icons/fa';
+import successSound from '../assets/sound/success.wav';
+import { motion } from 'framer-motion';
+import { useParams, useLocation } from 'react-router-dom';
 
 export default function OrderSuccess({ cartItems, onBack }) {
   const { tableId } = useParams();
   const location = useLocation();
   const [paymentId, setPaymentId] = useState(null);
 
-useEffect(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const paymentId = urlParams.get('payment_id');
-  
-  if (paymentId) {
-    setPaymentId(paymentId);
-  }
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentId = urlParams.get('payment_id');
 
-  return () => {
-    setPaymentId(null); 
-  };
-}, []);
+    if (paymentId) {
+      setPaymentId(paymentId);
+    }
+
+    return () => {
+      setPaymentId(null);
+    };
+  }, []);
 
   // Play success sound on mount
   useEffect(() => {
     const audio = new Audio(successSound);
     audio.play().catch(error => {
-      console.log("Audio play failed:", error);
+      console.log('Audio play failed:', error);
     });
   }, []);
 
@@ -41,20 +41,28 @@ useEffect(() => {
       <h2>Thank You!</h2>
 
       {paymentId && (
-        <p style={{ fontSize: "0.95rem", marginBottom: "8px" }}>
+        <p style={{ fontSize: '0.95rem', marginBottom: '8px' }}>
           <strong>Payment ID:</strong> {paymentId}
         </p>
       )}
 
-      <p style={{ marginTop: "10px", fontSize: "1rem", color: "#333", fontWeight: "500" }}>
-        Your order for <strong>Table {tableId}</strong> has been placed and is being prepared.
+      <p
+        style={{
+          marginTop: '10px',
+          fontSize: '1rem',
+          color: '#333',
+          fontWeight: '500',
+        }}
+      >
+        Your order for <strong>Table {tableId}</strong> has been placed and is
+        being prepared.
       </p>
 
-      <p style={{ fontSize: "0.95rem", color: "#666", marginBottom: "20px" }}>
+      <p style={{ fontSize: '0.95rem', color: '#666', marginBottom: '20px' }}>
         Estimated preparation time: <strong>15–20 minutes</strong>
       </p>
 
-      <p style={{ fontSize: "1rem", marginBottom: "12px" }}>
+      <p style={{ fontSize: '1rem', marginBottom: '12px' }}>
         Here's what you've ordered:
       </p>
 
@@ -69,17 +77,22 @@ useEffect(() => {
         ))}
       </ul>
 
-      <div className="order-total" style={{ marginTop: "20px" }}>
+      <div className="order-total" style={{ marginTop: '20px' }}>
         <strong>
           Total: ₹
           {cartItems.reduce(
-            (sum, item) => sum + parseInt(item.price.replace("₹", "")) * item.qty,
+            (sum, item) =>
+              sum + parseInt(item.price.replace('₹', '')) * item.qty,
             0
           )}
         </strong>
       </div>
 
-      <button className="checkout-btn" style={{ marginTop: "24px" }} onClick={onBack}>
+      <button
+        className="checkout-btn"
+        style={{ marginTop: '24px' }}
+        onClick={onBack}
+      >
         Go Back to Menu
       </button>
     </motion.div>

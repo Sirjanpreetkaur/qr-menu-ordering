@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import React, { useEffect, useRef } from 'react';
+import { FaPlus, FaMinus } from 'react-icons/fa';
+import { IoMdClose } from 'react-icons/io';
 
 export default function CartDrawer({
   cartItems,
@@ -13,21 +13,21 @@ export default function CartDrawer({
   const drawerRef = useRef();
 
   useEffect(() => {
-    const handleOutsideClick = (e) => {
+    const handleOutsideClick = e => {
       if (drawerRef.current && !drawerRef.current.contains(e.target)) {
         onClose();
       }
     };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [onClose]);
 
-  const isCouponApplied = couponCode === "Coupon Applied";
+  const isCouponApplied = couponCode === 'Coupon Applied';
 
   const total = isCouponApplied
     ? 1
     : cartItems.reduce(
-        (sum, item) => sum + parseInt(item.price.replace("₹", "")) * item.qty,
+        (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty,
         0
       );
 
@@ -63,8 +63,8 @@ export default function CartDrawer({
             <input
               type="checkbox"
               checked={isCouponApplied}
-              onChange={(e) =>
-                setCouponCode(e.target.checked ? "Coupon Applied" : "")
+              onChange={e =>
+                setCouponCode(e.target.checked ? 'Coupon Applied' : '')
               }
             />
             <span>Get this entire order for ₹1</span>

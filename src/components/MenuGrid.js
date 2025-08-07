@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { menuItems } from "../data/menuData.js";
-import { useParams } from "react-router-dom";
-import ItemModal from "./ItemModal";
+import React, { useState } from 'react';
+import { menuItems } from '../data/menuData.js';
+import { useParams } from 'react-router-dom';
+import ItemModal from './ItemModal';
 
 export default function MenuGrid({ onItemAddClick }) {
   const { category, tableId } = useParams();
   const [selectedItem, setSelectedItem] = useState(null);
 
   const filteredItems =
-    !category || category === "home"
+    !category || category === 'home'
       ? menuItems
-      : menuItems.filter((item) => item.category === category);
+      : menuItems.filter(item => item.category === category);
 
   return (
     <div className="menu-grid-wrapper">
@@ -42,7 +42,7 @@ export default function MenuGrid({ onItemAddClick }) {
       <ItemModal
         item={selectedItem}
         onClose={() => setSelectedItem(null)}
-        onAdd={(item) => {
+        onAdd={item => {
           onItemAddClick(item);
           setSelectedItem(null);
         }}
