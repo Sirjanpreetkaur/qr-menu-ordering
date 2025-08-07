@@ -16,7 +16,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
- "scripts": {
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -53,12 +53,14 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "src/**/*.{json,css,scss,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
-  }
+  },
+  "src/**/*.{json,css,scss,md}": [
+    "prettier --write",
+    "git add"
+  ]
 }
