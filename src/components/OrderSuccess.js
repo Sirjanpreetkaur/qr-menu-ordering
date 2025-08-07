@@ -9,15 +9,18 @@ export default function OrderSuccess({ cartItems, onBack }) {
   const location = useLocation();
   const [paymentId, setPaymentId] = useState(null);
 
-  // Extract payment ID from URL
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const idFromUrl = params.get("payment_id");
-    console.log("Payment ID from URL:", idFromUrl); // Debug log
-    if (idFromUrl) {
-      setPaymentId(idFromUrl);
-    }
-  }, [location.search]);
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const paymentId = urlParams.get('payment_id');
+  
+  if (paymentId) {
+    setPaymentId(paymentId);
+  }
+
+  return () => {
+    setPaymentId(null); 
+  };
+}, []);
 
   // Play success sound on mount
   useEffect(() => {
@@ -37,7 +40,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
       <FaCheckCircle size={60} color="#28a745" />
       <h2>Thank You!</h2>
 
-      {/* Fixed: Removed redundant paragraph wrapper and fixed conditional rendering */}
       {paymentId && (
         <p style={{ fontSize: "0.95rem", marginBottom: "8px" }}>
           <strong>Payment ID:</strong> {paymentId}
