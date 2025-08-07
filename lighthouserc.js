@@ -6,7 +6,6 @@ module.exports = {
       startServerCommand: 'npm start',
       startServerReadyPattern: 'Compiled successfully',
       startServerReadyTimeout: 60000,
-      output: 'none'  
     },
     assert: {
       assertions: {
@@ -15,6 +14,6 @@ module.exports = {
         'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
         'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }]
       }
-    }
+    },
   }
 };
