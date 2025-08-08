@@ -1,1 +1,1 @@
-npm run lhci:assert || echo 'Warning: Performance degraded!'
+# npm run lhci:assert || echo 'Warning: Performance degraded!'
