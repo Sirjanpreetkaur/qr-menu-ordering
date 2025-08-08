@@ -24,6 +24,7 @@ export default function MenuPage() {
       document.body.removeChild(script);
     };
   }, []);
+  console.log('1111111');
 
   function handleCheckout() {
     let amount = cartItems.reduce(
