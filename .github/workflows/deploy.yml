@@ -2,7 +2,7 @@ name: CI + Deploy to Vercel
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build-and-test:
