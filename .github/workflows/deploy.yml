@@ -20,5 +20,14 @@ jobs:
       - name: Build project (ignore warnings)
         run: CI=false npm run build
 
+      - name: Debug Vercel Token
+        run: |
+          echo "Token length: ${#VERCEL_TOKEN}"
+          echo "First few chars: ${VERCEL_TOKEN:0:4}****"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
       - name: Deploy to Vercel
-        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm
+        run: npx vercel --prod --token=$VERCEL_TOKEN --confirm
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
