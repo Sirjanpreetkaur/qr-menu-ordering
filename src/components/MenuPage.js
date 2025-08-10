@@ -19,7 +19,10 @@ export default function MenuPage() {
 
     // Remove all query parameters from URL
     window.history.replaceState({}, document.title, window.location.pathname);
-
+    console.log(
+      process.env.REACT_APP_TEST_RAZORPAY_KEY_ID,
+      '...process.env.REACT_APP_TEST_RAZORPAY_KEY_ID'
+    );
     return () => {
       document.body.removeChild(script);
     };
