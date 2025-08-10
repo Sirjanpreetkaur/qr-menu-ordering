@@ -41,7 +41,7 @@ export default function MenuPage() {
     }
 
     const options = {
-      key: process.env.REACT_APP_RAZORPAY_KEY_ID, // Replace with your Razorpay key
+      key: process.env.REACT_APP_TEST_RAZORPAY_KEY_ID, // Replace with your Razorpay key
       amount: amount * 100, // in paise
       currency: 'INR',
       name: 'Debuggers Da Dhabba',
