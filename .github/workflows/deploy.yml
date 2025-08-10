@@ -19,6 +19,8 @@ jobs:
 
       - name: Build project (ignore warnings)
         run: CI=false npm run build
+        env:
+          REACT_APP_TEST_RAZORPAY_KEY_ID: ${{ secrets.REACT_APP_TEST_RAZORPAY_KEY_ID }}
 
       - name: Deploy to Vercel
         run: npx vercel --prod --token=$VERCEL_TOKEN --confirm
