@@ -2,7 +2,7 @@ import React from 'react';
 import '../assets/menuPage.css';
 import { MenuOption } from '../data/menuData.js';
 import { useParams } from 'react-router-dom';
-
+import Img from '../../src/assets/images/Dhabba_Logo.jpeg';
 export default function Header() {
   const { tableId, category } = useParams();
 
@@ -13,11 +13,7 @@ export default function Header() {
       </div>
       <div className="header-top">
         <div className="logo-section">
-          <img
-            src="https://instalacarte.com/customer-logo/23/66c49c906aeeda31561440bd1be008e9.png"
-            alt="Debuggers Da Dhabba"
-            className="logo"
-          />
+          <img src={Img} alt="Debuggers Da Dhabba" className="logo" />
           <h1 className="restaurant-name">Debuggers Da Dhabba</h1>
         </div>
         {/* <button className="language-btn">English</button> */}

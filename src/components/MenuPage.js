@@ -3,7 +3,7 @@ import Header from './Header';
 import MenuGrid from './MenuGrid';
 import CartDrawer from './CartDrawer';
 import OrderSuccess from './OrderSuccess';
-
+import Logo from '../../src/assets/images/Dhabba_Logo.jpeg';
 export default function MenuPage() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -49,7 +49,7 @@ export default function MenuPage() {
       currency: 'INR',
       name: 'Debuggers Da Dhabba',
       description: 'Food order payment',
-      image: '/logo192.png',
+      image: Logo,
       handler: function (response) {
         const newUrl = `${window.location.pathname}?payment_id=${response.razorpay_payment_id}`;
         window.history.pushState({}, '', newUrl);
