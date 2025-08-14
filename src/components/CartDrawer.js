@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 
@@ -11,16 +11,22 @@ export default function CartDrawer({
   onCheckout,
 }) {
   const drawerRef = useRef();
+  const [showTestAlert, setShowTestAlert] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = e => {
-      if (drawerRef.current && !drawerRef.current.contains(e.target)) {
+      // ✅ Only detect outside click if modal is NOT open
+      if (
+        !showTestAlert &&
+        drawerRef.current &&
+        !drawerRef.current.contains(e.target)
+      ) {
         onClose();
       }
     };
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
-  }, [onClose]);
+  }, [onClose, showTestAlert]);
 
   const isCouponApplied = couponCode === 'Coupon Applied';
 
@@ -31,9 +37,21 @@ export default function CartDrawer({
         0
       );
 
+  const handleCheckoutClick = () => {
+    setShowTestAlert(true);
+  };
+
+  const proceedCheckout = e => {
+    e.stopPropagation(); // ✅ Prevent bubbling to overlay
+    console.log('111111');
+    setShowTestAlert(false);
+    onCheckout();
+  };
+
   return (
     <div className="cart-drawer-overlay">
       <div className="cart-drawer" ref={drawerRef}>
+        {/* Header */}
         <div className="cart-header">
           <h3>Cart</h3>
           <button onClick={onClose}>
@@ -41,6 +59,7 @@ export default function CartDrawer({
           </button>
         </div>
 
+        {/* Items */}
         <ul className="cart-items">
           {cartItems.map((item, index) => (
             <li key={index} className="cart-item">
@@ -58,6 +77,7 @@ export default function CartDrawer({
           ))}
         </ul>
 
+        {/* Coupon */}
         <div className="coupon-section">
           <label className="coupon-checkbox-label">
             <input
@@ -69,7 +89,6 @@ export default function CartDrawer({
             />
             <span>Get this entire order for ₹1</span>
           </label>
-
           {isCouponApplied && (
             <p className="coupon-message success">
               Discount applied! You're getting this order for just ₹1.
@@ -77,13 +96,34 @@ export default function CartDrawer({
           )}
         </div>
 
+        {/* Footer */}
         <div className="cart-footer">
           <strong>Total: ₹{total}</strong>
-          <button className="checkout-btn" onClick={onCheckout}>
+          <button className="checkout-btn" onClick={handleCheckoutClick}>
             Checkout
           </button>
         </div>
       </div>
+
+      {/* ✅ Test Mode Alert Modal */}
+      {showTestAlert && (
+        <div className="modal-overlay" style={{ pointerEvents: 'auto' }}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <h4>⚠ Test Mode Notice</h4>
+            <p>
+              You're using our test envionment. During UPI payment, you may see
+              error messages, but the payment will complete successfully. This
+              is normal behavior in our test environment.
+            </p>
+            <div className="modal-actions">
+              <button onClick={() => setShowTestAlert(false)}>Cancel</button>
+              <button onClick={proceedCheckout} className="proceed-btn">
+                Continue to Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

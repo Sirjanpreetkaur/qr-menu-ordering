@@ -509,6 +509,38 @@
   color: red;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+}
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+.proceed-btn {
+  background: #f59e0b;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 576px) {
   .menu-card-img {
     width: auto;
