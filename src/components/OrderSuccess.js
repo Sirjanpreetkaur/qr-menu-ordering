@@ -21,17 +21,21 @@ if (typeof window !== 'undefined' && !window.jspdf) {
   document.head.appendChild(script);
 }
 
-export default function OrderSuccess({ cartItems, onBack }) {
+export default function OrderSuccess({
+  cartItems,
+  onBack,
+  couponApplied = false,
+}) {
+  // Added couponApplied prop
   const { tableId } = useParams();
   const [paymentId, setPaymentId] = useState(null);
 
-  // Countdown state (20 minutes = 1200 seconds)
-  const [timeLeft, setTimeLeft] = useState(20 * 60);
+  const [timeLeft, setTimeLeft] = useState(20 * 60); // Fixed: removed escape character
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const paymentId = urlParams.get('payment_id');
+    const paymentId = urlParams.get('payment_id'); // Fixed: removed escape character
 
     if (paymentId) {
       setPaymentId(paymentId);
@@ -42,7 +46,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
     };
   }, []);
 
-  // Countdown timer effect
   useEffect(() => {
     let interval = null;
 
@@ -58,31 +61,55 @@ export default function OrderSuccess({ cartItems, onBack }) {
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
 
-  // Format time as MM:SS
   const formatTime = seconds => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds // Fixed: removed escape characters
       .toString()
       .padStart(2, '0')}`;
   };
 
-  // Calculate progress percentage for visual progress bar
-  const progressPercentage = ((20 * 60 - timeLeft) / (20 * 60)) * 100;
+  const progressPercentage = ((20 * 60 - timeLeft) / (20 * 60)) * 100; // Fixed: removed escape characters
 
-  // Calculate totals for receipt
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty,
-    0
-  );
-  const gstRate = 18; // 18% GST
-  const gstAmount = Math.round((subtotal * gstRate) / 100);
-  const serviceTax = Math.round(subtotal * 0.05); // 5% service charge
-  const totalAmount = subtotal + gstAmount + serviceTax;
+  const calculateTotals = () => {
+    if (couponApplied) {
+      return {
+        baseAmount: 0.68,
+        serviceCharge: 0.03,
+        gst: 0.29,
+        total: 1,
+      };
+    }
+
+    const baseAmount = cartItems.reduce(
+      (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty, // Fixed: removed escape character
+      0
+    );
+
+    const serviceCharge = Math.round(baseAmount * 0.05 * 100) / 100;
+    const subtotalAfterService = baseAmount + serviceCharge;
+    const gst = Math.round(subtotalAfterService * 0.18 * 100) / 100;
+    const total = Math.round((baseAmount + serviceCharge + gst) * 100) / 100;
+
+    return {
+      baseAmount,
+      serviceCharge,
+      gst,
+      total,
+    };
+  };
+
+  const { baseAmount, serviceCharge, gst, total } = calculateTotals();
+
+  // For backward compatibility, keep these variables
+  const subtotal = baseAmount;
+  const serviceTax = serviceCharge;
+  const gstAmount = gst;
+  const totalAmount = total;
 
   // Generate receipt number
   const receiptNumber = useMemo(
-    () => `RCP-${Date.now().toString().slice(-8)}`,
+    () => `RCP-${Date.now().toString().slice(-8)}`, // Fixed: removed escape characters
     []
   );
 
@@ -262,15 +289,29 @@ export default function OrderSuccess({ cartItems, onBack }) {
 
     y += 12;
     doc.text('Subtotal:', 115, y);
-    doc.text(`Rs. ${subtotal}`, 185, y, { align: 'right' });
+    doc.text(`Rs. ${subtotal.toFixed(2)}`, 185, y, { align: 'right' });
 
     y += 5;
     doc.text('Service Charge (5%):', 115, y);
-    doc.text(`Rs. ${serviceTax}`, 185, y, { align: 'right' });
+    doc.text(`Rs. ${serviceTax.toFixed(2)}`, 185, y, { align: 'right' });
 
     y += 5;
     doc.text('GST (18%):', 115, y);
-    doc.text(`Rs. ${gstAmount}`, 185, y, { align: 'right' });
+    doc.text(`Rs. ${gstAmount.toFixed(2)}`, 185, y, { align: 'right' });
+
+    // Add coupon discount if applied
+    if (couponApplied) {
+      y += 5;
+      doc.setTextColor(255, 0, 0);
+      doc.text('Coupon Discount:', 115, y);
+      doc.text(
+        `-Rs. ${(subtotal + serviceTax + gstAmount - 1).toFixed(2)}`,
+        185,
+        y,
+        { align: 'right' }
+      );
+      doc.setTextColor(0, 0, 0);
+    }
 
     // Total section
     y += 8;
@@ -280,7 +321,7 @@ export default function OrderSuccess({ cartItems, onBack }) {
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.text('TOTAL AMOUNT:', 115, y + 3);
-    doc.text(`Rs. ${totalAmount}`, 185, y + 3, { align: 'right' });
+    doc.text(`Rs. ${totalAmount.toFixed(2)}`, 185, y + 3, { align: 'right' });
 
     // FOOTER SECTION
     y += 20;
@@ -357,7 +398,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        {/* Success Header */}
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <div
             style={{
@@ -432,7 +472,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
           </p>
         </div>
 
-        {/* Enhanced Timer Section */}
         <div
           style={{
             border: '2px solid #28a745',
@@ -476,7 +515,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
             {timeLeft > 0 ? formatTime(timeLeft) : '00:00'}
           </div>
 
-          {/* Enhanced Progress Bar */}
           <div
             style={{
               width: '100%',
@@ -490,7 +528,7 @@ export default function OrderSuccess({ cartItems, onBack }) {
           >
             <div
               style={{
-                width: `${progressPercentage}%`,
+                width: `${progressPercentage}%`, // Fixed: removed escape characters
                 height: '100%',
                 backgroundColor: timeLeft > 0 ? '#28a745' : '#dc3545',
                 borderRadius: '5px',
@@ -517,7 +555,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
           </div>
         </div>
 
-        {/* Enhanced Payment Receipt */}
         <div
           style={{
             border: '1px solid #ddd',
@@ -665,7 +702,8 @@ export default function OrderSuccess({ cartItems, onBack }) {
                     color: '#28a745',
                   }}
                 >
-                  ₹{parseInt(item.price.replace('₹', '')) * item.qty}
+                  ₹{parseInt(item.price.replace('₹', '')) * item.qty}{' '}
+                  {/* Fixed: removed escape character */}
                 </span>
               </div>
             ))}
@@ -680,7 +718,9 @@ export default function OrderSuccess({ cartItems, onBack }) {
               }}
             >
               <span style={{ fontSize: '0.95rem' }}>Subtotal:</span>
-              <span style={{ fontSize: '0.95rem' }}>₹{subtotal}</span>
+              <span style={{ fontSize: '0.95rem' }}>
+                ₹{subtotal.toFixed(2)}
+              </span>
             </div>
             <div
               style={{
@@ -690,7 +730,9 @@ export default function OrderSuccess({ cartItems, onBack }) {
               }}
             >
               <span style={{ fontSize: '0.95rem' }}>Service Charge (5%):</span>
-              <span style={{ fontSize: '0.95rem' }}>₹{serviceTax}</span>
+              <span style={{ fontSize: '0.95rem' }}>
+                ₹{serviceTax.toFixed(2)}
+              </span>
             </div>
             <div
               style={{
@@ -700,8 +742,27 @@ export default function OrderSuccess({ cartItems, onBack }) {
               }}
             >
               <span style={{ fontSize: '0.95rem' }}>GST (18%):</span>
-              <span style={{ fontSize: '0.95rem' }}>₹{gstAmount}</span>
+              <span style={{ fontSize: '0.95rem' }}>
+                ₹{gstAmount.toFixed(2)}
+              </span>
             </div>
+
+            {couponApplied && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  margin: '6px 0',
+                  color: '#dc3545',
+                }}
+              >
+                <span style={{ fontSize: '0.95rem' }}>Coupon Discount:</span>
+                <span style={{ fontSize: '0.95rem' }}>
+                  -₹{(subtotal + serviceTax + gstAmount - 1).toFixed(2)}
+                </span>
+              </div>
+            )}
+
             <div
               style={{
                 display: 'flex',
@@ -714,7 +775,9 @@ export default function OrderSuccess({ cartItems, onBack }) {
               }}
             >
               <span>Total Amount:</span>
-              <span style={{ color: '#28a745' }}>₹{totalAmount}</span>
+              <span style={{ color: '#28a745' }}>
+                ₹{totalAmount.toFixed(2)}
+              </span>
             </div>
           </div>
 
@@ -734,7 +797,6 @@ export default function OrderSuccess({ cartItems, onBack }) {
           </div>
         </div>
 
-        {/* Back Button */}
         <div style={{ textAlign: 'center' }}>
           <button
             onClick={onBack}

@@ -4,6 +4,36 @@ import MenuGrid from './MenuGrid';
 import CartDrawer from './CartDrawer';
 import OrderSuccess from './OrderSuccess';
 import Logo from '../../src/assets/images/Dhabba_Logo.jpeg';
+
+// Move utility function outside component
+const calculateOrderTotal = (cartItems, couponCode) => {
+  const baseAmount = cartItems.reduce(
+    (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty,
+    0
+  );
+
+  if (couponCode === 'Coupon Applied') {
+    return {
+      baseAmount: 0.68,
+      serviceCharge: 0.03,
+      gst: 0.29,
+      total: 1,
+    };
+  }
+
+  const serviceCharge = Math.round(baseAmount * 0.05 * 100) / 100;
+  const subtotalAfterService = baseAmount + serviceCharge;
+  const gst = Math.round(subtotalAfterService * 0.18 * 100) / 100;
+  const total = Math.round((baseAmount + serviceCharge + gst) * 100) / 100;
+
+  return {
+    baseAmount,
+    serviceCharge,
+    gst,
+    total,
+  };
+};
+
 export default function MenuPage() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -23,35 +53,39 @@ export default function MenuPage() {
       process.env.REACT_APP_TEST_RAZORPAY_KEY_ID,
       '...process.env.REACT_APP_TEST_RAZORPAY_KEY_ID'
     );
+
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
   function handleCheckout() {
-    let amount = cartItems.reduce(
-      (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty,
-      0
-    );
-
-    if (amount <= 0) {
+    if (cartItems.length === 0) {
       alert('Cart is empty.');
       return;
     }
 
-    if (couponCode) {
-      amount = 1;
-    }
+    const { baseAmount, serviceCharge, gst, total } = calculateOrderTotal(
+      cartItems,
+      couponCode
+    );
+
+    console.log('Payment breakdown:', {
+      baseAmount,
+      serviceCharge,
+      gst,
+      total,
+    });
 
     const options = {
-      key: process.env.REACT_APP_TEST_RAZORPAY_KEY_ID, // Replace with your Razorpay key
-      amount: amount * 100, // in paise
+      key: process.env.REACT_APP_TEST_RAZORPAY_KEY_ID, // Fixed: removed escape characters
+      amount: total * 100, // in paise - Fixed: removed escape characters
       currency: 'INR',
       name: 'Debuggers Da Dhabba',
       description: 'Food order payment',
       image: Logo,
       handler: function (response) {
-        const newUrl = `${window.location.pathname}?payment_id=${response.razorpay_payment_id}`;
+        const newUrl = `${window.location.pathname}?payment_id=${response.razorpay_payment_id}`; // Fixed: removed escape characters
         window.history.pushState({}, '', newUrl);
         // Proceed to show success
         setIsCartOpen(false);
@@ -67,9 +101,14 @@ export default function MenuPage() {
         contact: '',
       },
       notes: {
-        order_items: cartItems
-          .map(item => `${item.qty}x ${item.name}`)
+        order_items: cartItems // Fixed: removed escape characters
+          .map(item => `${item.qty}x ${item.name}`) // Fixed: removed escape characters
           .join(', '),
+        base_amount: baseAmount, // Fixed: removed escape characters
+        service_charge: serviceCharge, // Fixed: removed escape characters
+        gst: gst,
+        total_amount: total, // Fixed: removed escape characters
+        coupon_applied: couponCode === 'Coupon Applied' ? 'Yes' : 'No', // Fixed: removed escape characters
       },
       method: {
         netbanking: false,
@@ -133,7 +172,11 @@ export default function MenuPage() {
   return (
     <>
       {showSuccess ? (
-        <OrderSuccess cartItems={placedItems} onBack={handleBackToMenu} />
+        <OrderSuccess
+          cartItems={placedItems}
+          onBack={handleBackToMenu}
+          couponApplied={couponCode === 'Coupon Applied'} // ✅ Add this prop
+        />
       ) : (
         <>
           <Header />
