@@ -98,7 +98,6 @@ export default function CartDrawer({
     e.preventDefault();
     e.stopPropagation();
 
-    // Clear existing timeout
     if (tooltipTimeoutRef.current) {
       clearTimeout(tooltipTimeoutRef.current);
       tooltipTimeoutRef.current = null;
@@ -117,7 +116,6 @@ export default function CartDrawer({
       return newState;
     });
   };
-
   return (
     <div className="cart-drawer-overlay">
       <div className="cart-drawer" ref={drawerRef}>
