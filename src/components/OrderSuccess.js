@@ -26,7 +26,6 @@ export default function OrderSuccess({
   onBack,
   couponApplied = false,
 }) {
-  // Added couponApplied prop
   const { tableId } = useParams();
   const [paymentId, setPaymentId] = useState(null);
 
@@ -101,13 +100,11 @@ export default function OrderSuccess({
 
   const { baseAmount, serviceCharge, gst, total } = calculateTotals();
 
-  // For backward compatibility, keep these variables
   const subtotal = baseAmount;
   const serviceTax = serviceCharge;
   const gstAmount = gst;
   const totalAmount = total;
 
-  // Generate receipt number
   const receiptNumber = useMemo(
     () => `RCP-${Date.now().toString().slice(-8)}`, // Fixed: removed escape characters
     []
@@ -299,19 +296,19 @@ export default function OrderSuccess({
     doc.text('GST (18%):', 115, y);
     doc.text(`Rs. ${gstAmount.toFixed(2)}`, 185, y, { align: 'right' });
 
-    // Add coupon discount if applied
-    if (couponApplied) {
-      y += 5;
-      doc.setTextColor(255, 0, 0);
-      doc.text('Coupon Discount:', 115, y);
-      doc.text(
-        `-Rs. ${(subtotal + serviceTax + gstAmount - 1).toFixed(2)}`,
-        185,
-        y,
-        { align: 'right' }
-      );
-      doc.setTextColor(0, 0, 0);
-    }
+    // // Add coupon discount if applied
+    // if (couponApplied) {
+    //   y += 5;
+    //   doc.setTextColor(255, 0, 0);
+    //   doc.text('Coupon Discount:', 115, y);
+    //   doc.text(
+    //     `-Rs. ${(subtotal + serviceTax + gstAmount - 1).toFixed(2)}`,
+    //     185,
+    //     y,
+    //     { align: 'right' }
+    //   );
+    //   doc.setTextColor(0, 0, 0);
+    // }
 
     // Total section
     y += 8;
@@ -703,7 +700,6 @@ export default function OrderSuccess({
                   }}
                 >
                   ₹{parseInt(item.price.replace('₹', '')) * item.qty}{' '}
-                  {/* Fixed: removed escape character */}
                 </span>
               </div>
             ))}
@@ -747,7 +743,7 @@ export default function OrderSuccess({
               </span>
             </div>
 
-            {couponApplied && (
+            {/* {couponApplied && (
               <div
                 style={{
                   display: 'flex',
@@ -761,7 +757,7 @@ export default function OrderSuccess({
                   -₹{(subtotal + serviceTax + gstAmount - 1).toFixed(2)}
                 </span>
               </div>
-            )}
+            )} */}
 
             <div
               style={{

@@ -47,12 +47,7 @@ export default function MenuPage() {
     script.async = true;
     document.body.appendChild(script);
 
-    // Remove all query parameters from URL
     window.history.replaceState({}, document.title, window.location.pathname);
-    console.log(
-      process.env.REACT_APP_TEST_RAZORPAY_KEY_ID,
-      '...process.env.REACT_APP_TEST_RAZORPAY_KEY_ID'
-    );
 
     return () => {
       document.body.removeChild(script);
@@ -69,13 +64,6 @@ export default function MenuPage() {
       cartItems,
       couponCode
     );
-
-    console.log('Payment breakdown:', {
-      baseAmount,
-      serviceCharge,
-      gst,
-      total,
-    });
 
     const options = {
       key: process.env.REACT_APP_TEST_RAZORPAY_KEY_ID, // Fixed: removed escape characters
@@ -175,7 +163,7 @@ export default function MenuPage() {
         <OrderSuccess
           cartItems={placedItems}
           onBack={handleBackToMenu}
-          couponApplied={couponCode === 'Coupon Applied'} // ✅ Add this prop
+          couponApplied={couponCode === 'Coupon Applied'}
         />
       ) : (
         <>
