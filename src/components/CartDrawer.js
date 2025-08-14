@@ -84,23 +84,10 @@ export default function CartDrawer({
     onCheckout();
   };
 
-  // Handle tooltip toggle for both mouse and touch
-  const handleTooltipToggle = e => {
+  const handleTooltipClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    setShowTaxTooltip(!showTaxTooltip);
-  };
-
-  const handleTooltipMouseEnter = () => {
-    if (window.innerWidth > 768) {
-      setShowTaxTooltip(true);
-    }
-  };
-
-  const handleTooltipMouseLeave = () => {
-    if (window.innerWidth > 768) {
-      setShowTaxTooltip(false);
-    }
+    setShowTaxTooltip(prev => !prev);
   };
 
   return (
@@ -162,11 +149,9 @@ export default function CartDrawer({
               <div className="tax-info">
                 <button
                   className="tax-info-btn"
-                  onMouseEnter={handleTooltipMouseEnter}
-                  onMouseLeave={handleTooltipMouseLeave}
-                  onClick={handleTooltipToggle}
-                  onTouchStart={handleTooltipToggle}
+                  onClick={handleTooltipClick}
                   aria-label="Show tax breakdown"
+                  type="button"
                 >
                   <FaInfoCircle size={14} />
                 </button>
