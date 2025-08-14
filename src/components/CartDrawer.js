@@ -11,6 +11,7 @@ export default function CartDrawer({
   onCheckout,
 }) {
   const drawerRef = useRef();
+  const tooltipTimeoutRef = useRef(null); // ✅ Added ref for timeout
   const [showTestAlert, setShowTestAlert] = useState(false);
   const [showTaxTooltip, setShowTaxTooltip] = useState(false);
 
@@ -19,6 +20,11 @@ export default function CartDrawer({
       // Close tooltip if clicking outside
       if (showTaxTooltip && !e.target.closest('.tax-info')) {
         setShowTaxTooltip(false);
+        // ✅ Clear timeout when tooltip is closed by outside click
+        if (tooltipTimeoutRef.current) {
+          clearTimeout(tooltipTimeoutRef.current);
+          tooltipTimeoutRef.current = null;
+        }
       }
 
       // Only detect outside click if modal is NOT open
@@ -37,6 +43,10 @@ export default function CartDrawer({
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
       document.removeEventListener('touchstart', handleOutsideClick);
+      // ✅ Cleanup timeout on unmount
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current);
+      }
     };
   }, [onClose, showTestAlert, showTaxTooltip]);
 
@@ -54,14 +64,14 @@ export default function CartDrawer({
     }
 
     const baseAmount = cartItems.reduce(
-      (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty, // Fixed: removed \
+      (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty,
       0
     );
 
-    const serviceCharge = Math.round(baseAmount * 0.05 * 100) / 100; // Fixed: removed \
+    const serviceCharge = Math.round(baseAmount * 0.05 * 100) / 100;
     const subtotalAfterService = baseAmount + serviceCharge;
-    const gst = Math.round(subtotalAfterService * 0.18 * 100) / 100; // Fixed: removed \
-    const total = Math.round((baseAmount + serviceCharge + gst) * 100) / 100; // Fixed: removed \
+    const gst = Math.round(subtotalAfterService * 0.18 * 100) / 100;
+    const total = Math.round((baseAmount + serviceCharge + gst) * 100) / 100;
 
     return {
       baseAmount,
@@ -84,10 +94,29 @@ export default function CartDrawer({
     onCheckout();
   };
 
+  // ✅ Updated tooltip click handler with 2.5 second timeout
   const handleTooltipClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    setShowTaxTooltip(prev => !prev);
+
+    // Clear existing timeout
+    if (tooltipTimeoutRef.current) {
+      clearTimeout(tooltipTimeoutRef.current);
+      tooltipTimeoutRef.current = null;
+    }
+
+    setShowTaxTooltip(prev => {
+      const newState = !prev;
+
+      if (newState) {
+        tooltipTimeoutRef.current = setTimeout(() => {
+          setShowTaxTooltip(false);
+          tooltipTimeoutRef.current = null;
+        }, 4500);
+      }
+
+      return newState;
+    });
   };
 
   return (
@@ -116,8 +145,7 @@ export default function CartDrawer({
                   <FaPlus />
                 </button>
                 <div className="item-total">
-                  ₹{parseInt(item.price.replace('₹', '')) * item.qty}{' '}
-                  {/* Fixed: removed \ */}
+                  ₹{parseInt(item.price.replace('₹', '')) * item.qty}
                 </div>
               </div>
             </li>
