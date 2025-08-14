@@ -94,7 +94,6 @@ export default function CartDrawer({
     onCheckout();
   };
 
-  // ✅ Updated tooltip click handler with 2.5 second timeout
   const handleTooltipClick = e => {
     e.preventDefault();
     e.stopPropagation();
