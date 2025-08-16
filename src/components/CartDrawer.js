@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { FaPlus, FaMinus, FaInfoCircle } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 
@@ -11,20 +11,33 @@ export default function CartDrawer({
   onCheckout,
 }) {
   const drawerRef = useRef();
-  const tooltipTimeoutRef = useRef(null); // ✅ Added ref for timeout
+  const tooltipTimeoutRef = useRef(null);
   const [showTestAlert, setShowTestAlert] = useState(false);
   const [showTaxTooltip, setShowTaxTooltip] = useState(false);
+
+  // ✅ Memoized function for hiding tooltip
+  const hideTooltip = useCallback(() => {
+    console.log('⏰ Hiding tooltip via timeout'); // Debug log
+    setShowTaxTooltip(false);
+    tooltipTimeoutRef.current = null;
+  }, []);
+
+  // ✅ Clear timeout utility
+  const clearTooltipTimeout = useCallback(() => {
+    if (tooltipTimeoutRef.current) {
+      console.log('🔄 Clearing timeout ID:', tooltipTimeoutRef.current); // Debug log
+      clearTimeout(tooltipTimeoutRef.current);
+      tooltipTimeoutRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = e => {
       // Close tooltip if clicking outside
       if (showTaxTooltip && !e.target.closest('.tax-info')) {
+        console.log('👆 Outside click - closing tooltip'); // Debug log
         setShowTaxTooltip(false);
-        // ✅ Clear timeout when tooltip is closed by outside click
-        if (tooltipTimeoutRef.current) {
-          clearTimeout(tooltipTimeoutRef.current);
-          tooltipTimeoutRef.current = null;
-        }
+        clearTooltipTimeout();
       }
 
       // Only detect outside click if modal is NOT open
@@ -43,12 +56,9 @@ export default function CartDrawer({
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
       document.removeEventListener('touchstart', handleOutsideClick);
-      // ✅ Cleanup timeout on unmount
-      if (tooltipTimeoutRef.current) {
-        clearTimeout(tooltipTimeoutRef.current);
-      }
+      clearTooltipTimeout();
     };
-  }, [onClose, showTestAlert, showTaxTooltip]);
+  }, [onClose, showTestAlert, showTaxTooltip, clearTooltipTimeout]);
 
   const isCouponApplied = couponCode === 'Coupon Applied';
 
@@ -94,28 +104,31 @@ export default function CartDrawer({
     onCheckout();
   };
 
-  const handleTooltipClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
+  // ✅ Better timeout management with useCallback
+  const handleTooltipClick = useCallback(
+    e => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (tooltipTimeoutRef.current) {
-      clearTimeout(tooltipTimeoutRef.current);
-      tooltipTimeoutRef.current = null;
-    }
+      console.log('🎯 Tooltip button clicked'); // Debug log
+      clearTooltipTimeout();
 
-    setShowTaxTooltip(prev => {
-      const newState = !prev;
+      setShowTaxTooltip(prev => {
+        const newState = !prev;
+        console.log('📊 Tooltip state changing to:', newState); // Debug log
 
-      if (newState) {
-        tooltipTimeoutRef.current = setTimeout(() => {
-          setShowTaxTooltip(false);
-          tooltipTimeoutRef.current = null;
-        }, 4500);
-      }
+        if (newState) {
+          console.log('⏱️ Setting 4.5 second timeout'); // Debug log
+          tooltipTimeoutRef.current = setTimeout(hideTooltip, 4500);
+          console.log('✅ Timeout set with ID:', tooltipTimeoutRef.current); // Debug log
+        }
 
-      return newState;
-    });
-  };
+        return newState;
+      });
+    },
+    [clearTooltipTimeout, hideTooltip]
+  );
+
   return (
     <div className="cart-drawer-overlay">
       <div className="cart-drawer" ref={drawerRef}>
