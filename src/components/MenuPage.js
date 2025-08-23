@@ -4,7 +4,8 @@ import MenuGrid from './MenuGrid';
 import CartDrawer from './CartDrawer';
 import OrderSuccess from './OrderSuccess';
 import Logo from '../../src/assets/images/Dhabba_Logo.jpeg';
-
+import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 // Move utility function outside component
 const calculateOrderTotal = (cartItems, couponCode) => {
   const baseAmount = cartItems.reduce(
@@ -40,6 +41,8 @@ export default function MenuPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [placedItems, setPlacedItems] = useState([]);
   const [couponCode, setCouponCode] = useState('');
+  const { tableId, category } = useParams();
+  const title = `Menu • Table ${tableId} • ${category}`;
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -159,6 +162,13 @@ export default function MenuPage() {
 
   return (
     <>
+      <Helmet>
+        <title>{title}</title>
+        <meta
+          name="description"
+          content={`Browse ${category} for table ${tableId}.`}
+        />
+      </Helmet>
       {showSuccess ? (
         <OrderSuccess
           cartItems={placedItems}
