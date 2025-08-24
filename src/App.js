@@ -13,8 +13,11 @@ ReactGA.initialize('G-0YX9MCJ4PF', { send_page_view: false });
 
 function GtagPageviewTracker() {
   const location = useLocation();
-
   useEffect(() => {
+    if (window.location.hostname === 'localhost') {
+      return;
+    }
+
     ReactGA.send({
       hitType: 'pageview',
       page: location.pathname + location.search,
