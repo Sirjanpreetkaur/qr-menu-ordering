@@ -8,6 +8,7 @@ import {
 import QRGenerator from './components/QRGenerator';
 import MenuPage from './components/MenuPage';
 import ReactGA from 'react-ga4';
+import MenuImagePage from './components/MenuImage';
 
 ReactGA.initialize('G-0YX9MCJ4PF', { send_page_view: false });
 
@@ -34,6 +35,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<QRGenerator />} />
         <Route path="/menu/:tableId/:category" element={<MenuPage />} />
+        <Route path="/menu" element={<MenuImagePage />} />
       </Routes>
     </Router>
   );

@@ -11,7 +11,7 @@ export const MenuOption = [
     url: 'medium-plates',
     img: '',
     path: 'https://www.emojiall.com/images/240/microsoft-teams/1f37d-fe0f.png',
-  }, // Fixed the missing quote
+  },
   {
     name: 'Large Plates',
     url: 'large-plates',
@@ -21,6 +21,12 @@ export const MenuOption = [
   { name: 'Sides-Breads', url: 'sides-breads', img: 'green-salad_1f957.png' },
   { name: 'Drinks', url: 'drinks', img: 'tropical-drink_1f379.png' },
   { name: 'Desserts', url: 'desserts', img: 'shortcake_1f370.png' },
+  {
+    name: 'Full Menu',
+    url: '/menu',
+    img: '',
+    path: 'https://png.pngtree.com/png-vector/20190916/ourmid/pngtree-menu-icon-for-your-project-png-image_1731088.jpg',
+  },
 ];
 
 export const menuItems = [

@@ -30,7 +30,14 @@ export default function Header() {
                 key={index}
                 className={`category ${isActive ? 'active' : ''}`}
               >
-                <a href={`/menu/${tableId}/${item.url}`}>
+                <a
+                  href={
+                    item.url.startsWith('/')
+                      ? item.url
+                      : `/menu/${tableId}/${item.url}`
+                  }
+                >
+                  {' '}
                   <img
                     src={
                       item.path ??
