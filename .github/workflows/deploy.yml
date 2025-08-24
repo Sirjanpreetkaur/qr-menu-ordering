@@ -9,33 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the code
       - uses: actions/checkout@v4
 
-      # 2. Setup Node.js
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.19.0
+          cache: 'npm'
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4. Run lint check  
       - name: Run lint
-        run: npm run lint  
+        run: npm run lint
 
-      # 5. Run build check (ignore warnings)
-      - name: Run build
+      - name: Build
         run: CI=false npm run build
 
-      # 6. Install Vercel CLI
       - name: Install Vercel CLI
         run: npm install -g vercel
 
-      # 7. Deploy to Vercel (only runs if above steps succeed)
       - name: Deploy to Vercel
         run: vercel --prod --token=$VERCEL_TOKEN --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          REACT_APP_TEST_RAZORPAY_KEY_ID: ${{ secrets.REACT_APP_TEST_RAZORPAY_KEY_ID }}
+          VITE_APP_TEST_RAZORPAY_KEY_ID: ${{ secrets.REACT_APP_TEST_RAZORPAY_KEY_ID }}
