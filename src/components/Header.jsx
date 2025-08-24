@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/menuPage.css';
-import { MenuOption } from '../data/menuData.js';
+import { MenuOption } from '../data/menuData.jsx';
 import { useParams } from 'react-router-dom';
 import Img from '../../src/assets/images/Dhabba_Logo.jpeg';
 export default function Header() {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { menuItems } from '../data/menuData.js';
+import { menuItems } from '../data/menuData.jsx';
 import { useParams } from 'react-router-dom';
 import ItemModal from './ItemModal';
 

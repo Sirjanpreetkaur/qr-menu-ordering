@@ -69,7 +69,7 @@ export default function MenuPage() {
     );
 
     const options = {
-      key: process.env.REACT_APP_TEST_RAZORPAY_KEY_ID, // Fixed: removed escape characters
+      key: import.meta.env.VITE_APP_TEST_RAZORPAY_KEY_ID, // Fixed: removed escape characters
       amount: total * 100, // in paise - Fixed: removed escape characters
       currency: 'INR',
       name: 'Debuggers Da Dhabba',
