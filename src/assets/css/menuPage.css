@@ -169,13 +169,6 @@
   font-weight: 700;
 }
 
-/* Grid layout */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  padding: 0 1rem;
-}
 
 /* Card */
 .menu-card {
@@ -280,6 +273,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: space-between;
+  margin:12px 40px;
 }
 
 .menu-card {
@@ -967,6 +962,9 @@
 }
 
 @media screen and (max-width: 480px) {
+  .menu-grid {
+  margin:12px 20px;
+}
   .cart-drawer {
     max-height: 80vh;
     padding: 12px;
