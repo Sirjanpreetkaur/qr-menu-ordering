@@ -85,16 +85,12 @@
   align-items: center;
 }
 
-#sticky-header {
+#sticky-header,
+.header {
   position: fixed;
   top: 0;
   width: 100%;
-  transition: transform 1s ease;
-  background-color: #fff;
-  color: var(--ik-header-bg-high-contrast-color);
-  z-index: var(--ik-sticky-header-z-index);
-  will-change: transform;
-  contain: content;
+  z-index: 1;  /* Higher than cards */
 }
 
 .header {
@@ -173,13 +169,107 @@
   font-weight: 700;
 }
 
+/* Grid layout */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+/* Card */
+.menu-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.menu-card-img {
+  height: 350px;
+  overflow: hidden; /* prevents bleed on hover */
+  border-radius: 4px;
+  position: relative;
+}
+
+.menu-card-img img {
+  transition: transform 0.3s ease;
+}
+
+.menu-card-img img:hover {
+  transform: scale(1.05);
+}
+
+
+/* Card Body */
+.menu-card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.menu-card-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.menu-card-description {
+  font-size: 0.9rem;
+  color: #555;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Footer */
+.menu-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-card-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e67e22;
+}
+
+/* Add Button */
+.menu-card-btn {
+  background: #e67e22;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.menu-card-btn:hover {
+  background: #cf6c16;
+  transform: scale(1.05);
+}
+
 .menu-grid-wrapper {
   padding-bottom: 236px;
   margin-top: 236px;
 }
 
 .menu-grid-section {
-  padding: 20px;
+  padding-top: 20px;
 }
 
 .menu-grid {
@@ -197,13 +287,14 @@
 }
 
 .menu-card-inner {
-  border: 1px solid #eee;
-  padding: 10px;
-  border-radius: 6px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* keeps image inside */
+}
+
+/* Hover effect only within the card, not above header */
+.menu-card-inner:hover {
+  z-index: 5; /* still below header (2000) */
 }
 
 .menu-card-toolbar {
