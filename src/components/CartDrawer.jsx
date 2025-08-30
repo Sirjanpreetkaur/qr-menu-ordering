@@ -103,23 +103,18 @@ export default function CartDrawer({
     onCheckout();
   };
 
-  // ✅ Better timeout management with useCallback
   const handleTooltipClick = useCallback(
     e => {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('🎯 Tooltip button clicked'); // Debug log
       clearTooltipTimeout();
 
       setShowTaxTooltip(prev => {
         const newState = !prev;
-        console.log('📊 Tooltip state changing to:', newState); // Debug log
 
         if (newState) {
-          console.log('⏱️ Setting 4.5 second timeout'); // Debug log
           tooltipTimeoutRef.current = setTimeout(hideTooltip, 4500);
-          console.log('✅ Timeout set with ID:', tooltipTimeoutRef.current); // Debug log
         }
 
         return newState;
