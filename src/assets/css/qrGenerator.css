@@ -1,0 +1,315 @@
+:root {
+  --dhaba-bg: #f9f2e8;
+  --dhaba-deep: #5e0b15;
+  --dhaba-accent: #d98e04;
+  --dhaba-accent-2: #a64f03;
+  --ink: #2c2c2c;
+  --muted: #6b6b6b;
+  --card: #fffaf3;
+}
+
+/* Root background */
+.qr-root {
+  min-height: 100vh;
+  background: radial-gradient(
+      1200px 400px at 0% 0%,
+      #ffffff 0%,
+      #fff6ea 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      1000px 400px at 100% 0%,
+      #ffffff 0%,
+      #fff1e0 35%,
+      transparent 70%
+    ),
+    var(--dhaba-bg);
+  color: var(--ink);
+}
+
+/* Header */
+.qr-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(0deg, #fff9f0, #fff);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 16px 20px;
+}
+
+.qr-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Title block with engaging accents */
+.qr-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qr-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  object-fit: cover;
+  box-shadow: 0 6px 14px -10px rgba(94, 11, 21, 0.4);
+}
+
+.qr-title-left-accent {
+  width: 6px;
+  height: 36px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #7a101b, var(--dhaba-deep));
+  box-shadow: 0 10px 20px -12px rgba(94, 11, 21, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.qr-title-text {
+  position: relative;
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  color: var(--dhaba-deep);
+  text-transform: uppercase;
+  font-weight: 850;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Animated underline below main line */
+.qr-title-underline {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--dhaba-accent),
+    var(--dhaba-accent-2)
+  );
+  box-shadow: 0 6px 14px -10px rgba(166, 79, 3, 0.6);
+  transition: width 280ms ease;
+}
+.qr-title-text:hover .qr-title-underline,
+.qr-title-text:focus-visible .qr-title-underline {
+  width: 100%;
+}
+
+/* Tagline line under the title */
+.qr-title-tagline {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
+
+/* Actions */
+.qr-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05),
+    0 10px 18px -12px rgba(94, 11, 21, 0.3);
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--dhaba-accent), #c07804);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 18px -8px rgba(168, 95, 3, 0.55);
+}
+.btn-deep {
+  background: linear-gradient(180deg, #7a101b, var(--dhaba-deep));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 18px -8px rgba(94, 11, 21, 0.6);
+}
+
+/* Content */
+.qr-content {
+  max-width: 1100px;
+  margin: 22px auto 60px;
+  padding: 0 20px;
+}
+
+/* Grid of cards */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+/* Cards */
+.qr-card {
+  background: var(--card);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 16px 14px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05),
+    0 8px 20px -14px rgba(94, 11, 21, 0.3),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.12s ease;
+}
+.qr-card:hover {
+  transform: translateY(-1px);
+}
+
+/* Table badge */
+.qr-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(180deg, #ffecc2, #ffd36e);
+  color: #5a3600;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  box-shadow: 0 6px 14px -8px rgba(217, 142, 4, 0.6);
+}
+
+/* Clickable link wrapping QR + URL */
+.qr-link {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+/* QR container */
+.qr-box {
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+.qr-link:hover .qr-box {
+  box-shadow: inset 0 0 0 2px var(--dhaba-accent-2);
+}
+
+/* Labels and URL */
+.qr-label {
+  margin-top: 8px;
+  font-weight: 800;
+  color: var(--dhaba-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  text-align: center;
+}
+.qr-sub {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.qr-url {
+  width: 100%;
+  word-break: break-all;
+  font-size: 12px;
+  color: #5a3600;
+  background: #fffdf6;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+/* Toast feedback */
+.toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: #1a7f37;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  z-index: 50;
+  animation: qr-fade 2s ease forwards;
+}
+@keyframes qr-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Pointer hint for desktops */
+@media (hover: hover) and (pointer: fine) {
+  .qr-link {
+    cursor: pointer;
+  }
+}
+
+/* Print styles */
+@media print {
+  .qr-header,
+  .toast {
+    display: none !important;
+  }
+  .qr-root {
+    background: white;
+  }
+  .qr-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .qr-card {
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+  .qr-url {
+    font-size: 10px;
+  }
+}

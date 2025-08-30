@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/menuPage.css';
+import '../assets/css/menuPage.css';
 import { MenuOption } from '../data/menuData.jsx';
 import { useParams } from 'react-router-dom';
 import Img from '../../src/assets/images/Dhabba_Logo.jpeg';
