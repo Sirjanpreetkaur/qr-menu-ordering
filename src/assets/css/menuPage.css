@@ -272,9 +272,9 @@
 .menu-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-  margin:12px 40px;
+  gap: 40px;
+  justify-content: center;
+  margin:12px auto;
 }
 
 .menu-card {
