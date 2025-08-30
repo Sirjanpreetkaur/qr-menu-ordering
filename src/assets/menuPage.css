@@ -5,6 +5,7 @@
   padding: 30px;
   gap: 30px;
 }
+
 .qr-card {
   width: 241px;
   display: flex;
@@ -12,9 +13,80 @@
   justify-content: center;
   flex-direction: column;
 }
+
 .qr-container h2 {
   text-align: center;
 }
+
+/* ---------- QR Generator Page Enhancements ---------- */
+.qr-container {
+  text-align: center;
+  padding: 30px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fffde7, #fff3e0);
+}
+
+.qr-header {
+  margin-bottom: 30px;
+}
+
+.qr-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff5722;
+  margin-bottom: 10px;
+}
+
+.qr-subtitle {
+  color: #555;
+  font-size: 1rem;
+}
+
+
+
+.qr-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.qr-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.qr-label {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.qr-btn {
+  margin-top: 10px;
+  display: inline-block;
+  background: #ff5722;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.qr-btn:hover {
+  background: #e64a19;
+}
+
+.qr-header-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #sticky-header {
   position: fixed;
   top: 0;
@@ -26,6 +98,7 @@
   will-change: transform;
   contain: content;
 }
+
 .header {
   padding: 10px 0px;
   border-bottom: 1px solid #eee;
@@ -122,6 +195,7 @@
   color: inherit;
   flex: 1 1 calc(33.333% - 20px);
   min-width: 280px;
+  max-width: 480px;
 }
 
 .menu-card-inner {
@@ -157,6 +231,7 @@
 .menu-card-img {
   height: 350px;
 }
+
 .menu-card-img img {
   width: 100%;
   height: 100%;
@@ -261,7 +336,8 @@
 .cart-drawer {
   background: white;
   width: 100%;
-  max-height: 75vh; /* Enhanced from 70% for better mobile experience */
+  max-height: 75vh;
+  /* Enhanced from 70% for better mobile experience */
   overflow-y: auto;
   padding: 16px;
   border-top-left-radius: 20px;
@@ -321,7 +397,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 0; /* Allows text to wrap properly */
+  min-width: 0;
+  /* Allows text to wrap properly */
 }
 
 .item-name {
@@ -347,7 +424,8 @@
 
 /* ✅ GREEN + - BUTTONS */
 .cart-item-controls button {
-  background-color: #28a745; /* Green background */
+  background-color: #28a745;
+  /* Green background */
   border: none;
   padding: 8px;
   border-radius: 8px;
@@ -361,17 +439,20 @@
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
   touch-action: manipulation;
-  color: white; /* White icons */
+  color: white;
+  /* White icons */
 }
 
 .cart-item-controls button:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
+  /* Darker green on hover */
   transform: scale(1.05);
   box-shadow: 0 3px 6px rgba(40, 167, 69, 0.3);
 }
 
 .cart-item-controls button:active {
-  background-color: #1e7e34; /* Even darker green when pressed */
+  background-color: #1e7e34;
+  /* Even darker green when pressed */
   transform: scale(0.98);
 }
 
@@ -432,13 +513,15 @@
   gap: 8px;
   padding: 12px 0;
   margin-bottom: 0;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
 
 .total-section strong {
   font-size: 18px;
   color: #333;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
+  /* Prevent text wrapping */
 }
 
 .tax-info {
@@ -451,16 +534,19 @@
   border: none;
   cursor: pointer;
   color: white;
-  padding: 6px; /* Slightly smaller to fit better */
+  padding: 6px;
+  /* Slightly smaller to fit better */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   touch-action: manipulation;
-  width: 28px; /* Slightly smaller */
+  width: 28px;
+  /* Slightly smaller */
   height: 28px;
-  margin-left: 4px; /* Small margin from total text */
+  margin-left: 4px;
+  /* Small margin from total text */
 }
 
 .tax-info-btn:hover,
@@ -472,10 +558,14 @@
 
 .tax-tooltip {
   position: absolute;
-  left: 100%; /* Position to the right of the icon */
-  bottom: 50%; /* Center vertically relative to the icon */
-  transform: translateY(50%); /* Fine-tune vertical centering */
-  margin-left: 8px; /* Small gap from the icon */
+  left: 100%;
+  /* Position to the right of the icon */
+  bottom: 50%;
+  /* Center vertically relative to the icon */
+  transform: translateY(50%);
+  /* Fine-tune vertical centering */
+  margin-left: 8px;
+  /* Small gap from the icon */
   background: #333;
   color: white;
   padding: 12px;
@@ -491,11 +581,15 @@
 .tax-tooltip::after {
   content: '';
   position: absolute;
-  top: 50%; /* Center the arrow vertically */
-  left: -6px; /* Position arrow to point left toward the icon */
-  transform: translateY(-50%); /* Center the arrow */
+  top: 50%;
+  /* Center the arrow vertically */
+  left: -6px;
+  /* Position arrow to point left toward the icon */
+  transform: translateY(-50%);
+  /* Center the arrow */
   border: 6px solid transparent;
-  border-right-color: #333; /* Arrow points left */
+  border-right-color: #333;
+  /* Arrow points left */
 }
 
 @keyframes fadeIn {
@@ -503,6 +597,7 @@
     opacity: 0;
     transform: translateY(5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -548,8 +643,10 @@
   font-size: 16px;
   transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-  flex-shrink: 0; /* Prevent shrinking */
-  min-width: 120px; /* Ensure minimum width */
+  flex-shrink: 0;
+  /* Prevent shrinking */
+  min-width: 120px;
+  /* Ensure minimum width */
 }
 
 .checkout-btn:hover {
@@ -667,7 +764,8 @@
 
 .coupon-checkbox-label input {
   cursor: pointer;
-  transform: scale(1.2); /* Larger checkbox for mobile */
+  transform: scale(1.2);
+  /* Larger checkbox for mobile */
 }
 
 .coupon-message {
@@ -741,7 +839,8 @@
   }
 
   .total-section strong {
-    font-size: 16px; /* Slightly smaller on mobile */
+    font-size: 16px;
+    /* Slightly smaller on mobile */
   }
 
   .checkout-btn {
@@ -827,5 +926,12 @@
   .menu-card-img {
     width: auto;
     height: auto;
+  }
+
+  .qr-header-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }
