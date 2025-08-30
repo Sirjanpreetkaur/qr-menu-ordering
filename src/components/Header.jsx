@@ -14,7 +14,12 @@ export default function Header() {
   );
 
   let reorderedCategories = [...MenuOption];
-  if (activeIndex > -1) {
+
+  // ✅ Only reorder if activeIndex is valid and not "all"
+  if (
+    activeIndex > -1 &&
+    MenuOption[activeIndex].url !== 'home' // don't move "all"
+  ) {
     const [activeItem] = reorderedCategories.splice(activeIndex, 1);
     reorderedCategories.splice(1, 0, activeItem); // put active at 2nd
   }
@@ -41,7 +46,7 @@ export default function Header() {
       <div className="header-top">
         <div className="logo-section">
           <img src={Img} alt="Debuggers Da Dhabba" className="logo" />
-          <h1 className="restaurant-name">Debugger's Da Dhabba</h1>
+          <h1 className="restaurant-name">Debuggers Da Dhabba</h1>
         </div>
       </div>
 
