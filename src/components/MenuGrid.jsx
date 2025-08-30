@@ -32,7 +32,7 @@ export default function MenuGrid({ onItemAddClick }) {
                     className="menu-card-btn"
                     onClick={() => setSelectedItem(item)}
                   >
-                    + Add
+                     Add
                   </button>
                 </div>
               </div>
