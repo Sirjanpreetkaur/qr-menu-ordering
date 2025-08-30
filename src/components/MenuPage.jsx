@@ -2,10 +2,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import Header from './Header';
 import MenuGrid from './MenuGrid';
 import CartDrawer from './CartDrawer';
-import OrderSuccess from './OrderSuccess';
 import Logo from '../../src/assets/images/Dhabba_Logo.jpeg';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 // Move utility function outside component
 const calculateOrderTotal = (cartItems, couponCode) => {
   const baseAmount = cartItems.reduce(
@@ -38,10 +38,10 @@ const calculateOrderTotal = (cartItems, couponCode) => {
 export default function MenuPage() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [placedItems, setPlacedItems] = useState([]);
   const [couponCode, setCouponCode] = useState('');
   const { tableId, category } = useParams();
+  const navigate = useNavigate();
+
   const title = `Menu • Table ${tableId} • ${category}`;
 
   useEffect(() => {
@@ -69,22 +69,22 @@ export default function MenuPage() {
     );
 
     const options = {
-      key: import.meta.env.VITE_APP_TEST_RAZORPAY_KEY_ID, // Fixed: removed escape characters
-      amount: total * 100, // in paise - Fixed: removed escape characters
-      currency: 'INR',
+      key: import.meta.env.VITE_APP_TEST_RAZORPAY_KEY_ID,
+      amount: total * 100,
       name: 'Debuggers Da Dhabba',
       description: 'Food order payment',
       image: Logo,
       handler: function (response) {
-        const newUrl = `${window.location.pathname}?payment_id=${response.razorpay_payment_id}`; // Fixed: removed escape characters
-        window.history.pushState({}, '', newUrl);
-        // Proceed to show success
-        setIsCartOpen(false);
-        setTimeout(() => {
-          setPlacedItems(cartItems);
-          setShowSuccess(true);
-          setCartItems([]);
-        }, 300);
+        navigate(
+          `/payment-success?payment_id=${response.razorpay_payment_id}`,
+          {
+            state: {
+              items: cartItems,
+              tableId,
+              couponApplied: couponCode === 'Coupon Applied',
+            },
+          }
+        );
       },
       prefill: {
         name: '',
@@ -92,14 +92,14 @@ export default function MenuPage() {
         contact: '',
       },
       notes: {
-        order_items: cartItems // Fixed: removed escape characters
-          .map(item => `${item.qty}x ${item.name}`) // Fixed: removed escape characters
+        order_items: cartItems
+          .map(item => `${item.qty}x ${item.name}`)
           .join(', '),
-        base_amount: baseAmount, // Fixed: removed escape characters
-        service_charge: serviceCharge, // Fixed: removed escape characters
+        base_amount: baseAmount,
+        service_charge: serviceCharge,
         gst: gst,
-        total_amount: total, // Fixed: removed escape characters
-        coupon_applied: couponCode === 'Coupon Applied' ? 'Yes' : 'No', // Fixed: removed escape characters
+        total_amount: total,
+        coupon_applied: couponCode === 'Coupon Applied' ? 'Yes' : 'No',
       },
       method: {
         netbanking: false,
@@ -156,10 +156,6 @@ export default function MenuPage() {
     setCartItems(updated);
   }
 
-  function handleBackToMenu() {
-    setShowSuccess(false);
-  }
-
   return (
     <>
       <Helmet>
@@ -169,28 +165,20 @@ export default function MenuPage() {
           content={`Browse ${category} for table ${tableId}.`}
         />
       </Helmet>
-      {showSuccess ? (
-        <OrderSuccess
-          cartItems={placedItems}
-          onBack={handleBackToMenu}
-          couponApplied={couponCode === 'Coupon Applied'}
-        />
-      ) : (
-        <>
-          <Header />
-          <MenuGrid onItemAddClick={handleAddToCart} />
-          {isCartOpen && cartItems.length > 0 && (
-            <CartDrawer
-              cartItems={cartItems}
-              onClose={() => setIsCartOpen(false)}
-              onUpdateQty={handleUpdateQty}
-              onCheckout={handleCheckout}
-              setCouponCode={setCouponCode}
-              couponCode={couponCode}
-            />
-          )}
-        </>
-      )}
+      <>
+        <Header />
+        <MenuGrid onItemAddClick={handleAddToCart} />
+        {isCartOpen && cartItems.length > 0 && (
+          <CartDrawer
+            cartItems={cartItems}
+            onClose={() => setIsCartOpen(false)}
+            onUpdateQty={handleUpdateQty}
+            onCheckout={handleCheckout}
+            setCouponCode={setCouponCode}
+            couponCode={couponCode}
+          />
+        )}
+      </>
     </>
   );
 }

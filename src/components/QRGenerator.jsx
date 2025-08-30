@@ -15,7 +15,7 @@ export default function QRGenerator() {
           content="Create QR codes for your tables and menus."
         />
       </Helmet>
-      <h2>Table QR Codes | Home</h2>
+      <h2>Table QR Codes</h2>
       <div className="qr-grid">
         {tables.map(tableId => {
           const url = `${window.location.origin}/menu/${tableId}/home`;

@@ -8,8 +8,7 @@ import {
 } from 'react-icons/fa';
 import successSound from '../assets/sound/success.wav';
 import { motion } from 'framer-motion';
-import { useParams, useLocation } from 'react-router-dom';
-
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 // Add jsPDF script dynamically
 if (typeof window !== 'undefined' && !window.jspdf) {
   const script = document.createElement('script');
@@ -21,20 +20,22 @@ if (typeof window !== 'undefined' && !window.jspdf) {
   document.head.appendChild(script);
 }
 
-export default function OrderSuccess({
-  cartItems,
-  onBack,
-  couponApplied = false,
-}) {
-  const { tableId } = useParams();
+export default function OrderSuccess() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [paymentId, setPaymentId] = useState(null);
 
-  const [timeLeft, setTimeLeft] = useState(20 * 60); // Fixed: removed escape character
+  const [timeLeft, setTimeLeft] = useState(20 * 60);
   const [isActive, setIsActive] = useState(true);
+
+  const state = location.state || {};
+  const cartItems = state.items || [];
+  const couponApplied = state.couponApplied || false;
+  const tableId = state.tableId;
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const paymentId = urlParams.get('payment_id'); // Fixed: removed escape character
+    const paymentId = urlParams.get('payment_id');
 
     if (paymentId) {
       setPaymentId(paymentId);
@@ -63,12 +64,12 @@ export default function OrderSuccess({
   const formatTime = seconds => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds // Fixed: removed escape characters
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds
       .toString()
       .padStart(2, '0')}`;
   };
 
-  const progressPercentage = ((20 * 60 - timeLeft) / (20 * 60)) * 100; // Fixed: removed escape characters
+  const progressPercentage = ((20 * 60 - timeLeft) / (20 * 60)) * 100;
 
   const calculateTotals = () => {
     if (couponApplied) {
@@ -81,7 +82,7 @@ export default function OrderSuccess({
     }
 
     const baseAmount = cartItems.reduce(
-      (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty, // Fixed: removed escape character
+      (sum, item) => sum + parseInt(item.price.replace('₹', '')) * item.qty,
       0
     );
 
@@ -106,7 +107,7 @@ export default function OrderSuccess({
   const totalAmount = total;
 
   const receiptNumber = useMemo(
-    () => `RCP-${Date.now().toString().slice(-8)}`, // Fixed: removed escape characters
+    () => `RCP-${Date.now().toString().slice(-8)}`,
     []
   );
 
@@ -525,7 +526,7 @@ export default function OrderSuccess({
           >
             <div
               style={{
-                width: `${progressPercentage}%`, // Fixed: removed escape characters
+                width: `${progressPercentage}%`,
                 height: '100%',
                 backgroundColor: timeLeft > 0 ? '#28a745' : '#dc3545',
                 borderRadius: '5px',
@@ -795,7 +796,7 @@ export default function OrderSuccess({
 
         <div style={{ textAlign: 'center' }}>
           <button
-            onClick={onBack}
+            onClick={() => navigate(-1)}
             style={{
               background: '#6c757d',
               color: 'white',
