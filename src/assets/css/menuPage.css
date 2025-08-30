@@ -373,8 +373,8 @@
 
 .modal-close {
   position: absolute;
-  top: 8px;
-  right: 12px;
+  top: 2px;
+  right: -6px;
   background: none;
   border: none;
   cursor: pointer;
