@@ -99,7 +99,6 @@ export default function CartDrawer({
 
   const proceedCheckout = e => {
     e.stopPropagation();
-    console.log('111111');
     setShowTestAlert(false);
     onCheckout();
   };
