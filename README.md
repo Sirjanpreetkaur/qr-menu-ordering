@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# 🍽️ QR Menu Ordering with Razorpay  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![React](https://img.shields.io/badge/React-18-blue?logo=react)](https://reactjs.org/) 
+[![Vite](https://img.shields.io/badge/Vite-Build-orange?logo=vite)](https://vitejs.dev/) 
+[![Razorpay](https://img.shields.io/badge/Razorpay-Payments-brightgreen?logo=razorpay)](https://razorpay.com/) 
+[![PWA](https://img.shields.io/badge/PWA-Ready-purple?logo=pwa)](https://web.dev/progressive-web-apps/) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Available Scripts
+A sleek **QR-based digital menu & ordering system** built with **React + Vite + React Router**.  
+Scan a QR on your table, browse menu categories, add items to your cart, pay with **Razorpay (test mode)**, and download a PDF receipt.  
+Now also works as a **Progressive Web App (PWA)** — installable on desktop & mobile! 🚀  
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
+- 📱 **QR Table Routing** → `/menu/:tableId/:category` for per-table context.
+- 🥘 **Menu Categories** → small/medium/large plates, breads, drinks & desserts.
+- ➕ **Item Modal + Cart Drawer** → add items, manage qty, view taxes.
+- 💳 **Razorpay Checkout** (test key via `.env`) → supports UPI & card.
+- 🧾 **Order Success + PDF Receipt** → auto-generated bill with GST & service charge.
+- 🧑‍🍳 **QR Generator** → prints ready-to-use QR codes for 12 tables.
+- 📲 **PWA Support** → installable app with offline fallback & icons.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
+- ⚛️ React 18 + Vite + React Router v6  
+- 🎨 Framer Motion + React Icons  
+- 🧾 jsPDF (via CDN) for receipts  
+- 💳 Razorpay Checkout (test mode)  
+- 📲 VitePWA for Progressive Web App support  
+- 🧢 react-helmet-async for SEO/meta  
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📦 Installation
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/qr-menu-razorpay.git
+cd qr-menu-razorpay
 
-### `npm run build`
+# 2. Install dependencies
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 3. Create a .env file in the project root
+echo "VITE_APP_TEST_RAZORPAY_KEY_ID=rzp_test_xxxxxx" > .env
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 4. Start development server (runs at http://localhost:3000)
+npm run dev
