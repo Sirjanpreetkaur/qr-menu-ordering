@@ -38,6 +38,7 @@ export const menuItems = [
     description: 'a perfect mix of North Indian and South Indian street food.',
     link: '/menu/indian/small-plates/veg/idli-chaat/',
     category: 'small-plates',
+    type: 'veg',
   },
   {
     name: 'burmese basil paneer',
@@ -48,6 +49,7 @@ export const menuItems = [
       'cottage cheese coated in a special Burmese spice paste, a true legacy of Indians in Myanmar.',
     link: '/menu/indian/small-plates/veg/burmese-paneer/',
     category: 'small-plates',
+    type: 'veg',
   },
   {
     name: "skinner's potatoes",
@@ -57,6 +59,7 @@ export const menuItems = [
     description: 'a small plate of round potatoes in delicious skinner sauce.',
     link: '/menu/indian/small-plates/veg/skinner-potatoes/',
     category: 'small-plates',
+    type: 'veg',
   },
   {
     name: 'tangra style paneer',
@@ -67,6 +70,7 @@ export const menuItems = [
       'Hakka-style paneer from the back alleys of Tangra. A tribute to Nelson Wang.',
     link: '/menu/indian/small-plates/veg/tangra-paneer/',
     category: 'small-plates',
+    type: 'veg',
   },
   {
     name: 'masoor dal fritters',
@@ -77,6 +81,7 @@ export const menuItems = [
       'red lentil fritters served with chickpea and lentil dip. Comfort food at its best.',
     link: '/menu/indian/small-plates/veg/masoor-fritters/',
     category: 'small-plates',
+    type: 'veg',
   },
   {
     name: 'dahi ke sule',
@@ -87,6 +92,7 @@ export const menuItems = [
       'hung yogurt kebabs stuffed with saffron, pomegranate, and black pepper.',
     link: '/menu/indian/small-plates/veg/dahi-ke-sule/',
     category: 'small-plates',
+    type: 'veg',
   },
   {
     name: 'ganna chicken',
@@ -96,6 +102,7 @@ export const menuItems = [
     description: 'minced chicken skewers flavoured with sugarcane and chilli.',
     link: '/menu/indian/small-plates/chicken/ganna-chicken/',
     category: 'small-plates',
+    type: 'nonveg',
   },
   {
     name: 'tangra style crispy chicken',
@@ -106,6 +113,7 @@ export const menuItems = [
       'Hakka-style crispy chicken from Tangra. A tribute to Nelson Wang.',
     link: '/menu/indian/small-plates/chicken/tangra-crispy/',
     category: 'small-plates',
+    type: 'nonveg',
   },
   {
     name: 'coronation chicken',
@@ -115,6 +123,7 @@ export const menuItems = [
     description: 'cold curried chicken on lettuce. A legacy of the Raj.',
     link: '/menu/indian/small-plates/chicken/coronation/',
     category: 'small-plates',
+    type: 'nonveg',
   },
   {
     name: 'gymkhana mutton toast',
@@ -124,6 +133,7 @@ export const menuItems = [
     description: 'Anglo-Indian mutton masala served on crusty toast.',
     link: '/menu/indian/small-plates/mutton/gymkhana-toast/',
     category: 'small-plates',
+    type: 'nonveg',
   },
   {
     name: 'mutton deemor devils',
@@ -133,6 +143,7 @@ export const menuItems = [
     description: 'boiled eggs wrapped in spicy mutton and potato masala.',
     link: '/menu/indian/small-plates/mutton/devils/',
     category: 'small-plates',
+    type: 'nonveg',
   },
   {
     name: 'bombay keema',
@@ -143,6 +154,7 @@ export const menuItems = [
       'spicy keema served on crispy naan – a Delhi ode to Bombay street food.',
     link: '/menu/indian/small-plates/mutton/keema-naan/',
     category: 'small-plates',
+    type: 'nonveg',
   },
   {
     name: 'suran ke kebab',
@@ -153,6 +165,7 @@ export const menuItems = [
       'elephant foot yam roundels served with saffron flatbread, date chutney, and carrot purée. Inspired by the Maratha Empire, 1700 C.E.',
     link: '/menu/indian/medium-plates/veg/suran-kebab/',
     category: 'medium-plates',
+    type: 'nonveg',
   },
   {
     name: 'paneer pataka',
@@ -163,6 +176,7 @@ export const menuItems = [
       'crispy spiced paneer coated in dal papad. A fiery delight from New Delhi, 1990 C.E.',
     link: '/menu/indian/medium-plates/veg/paneer-pataka/',
     category: 'medium-plates',
+    type: 'veg',
   },
   {
     name: 'sabzshoro',
@@ -173,6 +187,7 @@ export const menuItems = [
       'flaky pastry filled with minced vegetables, apricot oil and sesame seeds. A recipe from Hunza Valley, 1600 C.E.',
     link: '/menu/indian/medium-plates/veg/sabzshoro/',
     category: 'medium-plates',
+    type: 'veg',
   },
   {
     name: 'chookandar kebab',
@@ -183,6 +198,7 @@ export const menuItems = [
       'shahi beetroot kebabs from the royal kitchens of Oudh, 1720 C.E.',
     link: '/menu/indian/medium-plates/veg/chookandar-kebab/',
     category: 'medium-plates',
+    type: 'veg',
   },
   {
     name: 'sanbusak',
@@ -193,6 +209,7 @@ export const menuItems = [
       'golden triangular pastries filled with mutton, saffron, and rosewater. Inspired by the Nimatnama, 1500 C.E.',
     link: '/menu/indian/medium-plates/mutton/sanbusak/',
     category: 'medium-plates',
+    type: 'veg',
   },
   {
     name: 'betel leaf chicken',
@@ -203,6 +220,7 @@ export const menuItems = [
       'chicken wrapped in betel leaves with turmeric-jaggery chutney. Ahom Kingdom, 1600 C.E.',
     link: '/menu/indian/medium-plates/chicken/betel-leaf-chicken/',
     category: 'medium-plates',
+    type: 'nonveg',
   },
   {
     name: 'bhaditrakam',
@@ -213,6 +231,7 @@ export const menuItems = [
       'roasted chicken spiced with fenugreek, asafoetida, cumin, and lemon. From *Manasollasa*, 1129 C.E.',
     link: '/menu/indian/medium-plates/chicken/bhaditrakam/',
     category: 'medium-plates',
+    type: 'nonveg',
   },
   {
     name: "nabob's bengal fish",
@@ -223,6 +242,7 @@ export const menuItems = [
       'Bengali sole fried with red chilli and kasundi mustard. A Bengal Club legacy, 1827 C.E.',
     link: '/menu/indian/medium-plates/fish/nabobs-bengal-fish/',
     category: 'medium-plates',
+    type: 'nonveg',
   },
   {
     name: 'veg thali',
@@ -233,6 +253,7 @@ export const menuItems = [
       'A traditional vegetarian thali featuring a balanced assortment of dal, sabzi, rice, roti, and accompaniments.',
     link: '/menu/indian/large-plates/veg-thali/',
     category: 'large-plates',
+    type: 'veg',
   },
   {
     name: 'dal thali',
@@ -243,6 +264,7 @@ export const menuItems = [
       'Simple and hearty dal served with rice, roti, and sides. A staple comfort meal.',
     link: '/menu/indian/large-plates/dal-thali/',
     category: 'large-plates',
+    type: 'veg',
   },
   {
     name: 'delux thali',
@@ -253,6 +275,7 @@ export const menuItems = [
       'A deluxe spread with multiple vegetable dishes, paneer, dal, rice, roti, dessert, and more.',
     link: '/menu/indian/large-plates/veg-delux-thali/',
     category: 'large-plates',
+    type: 'veg',
   },
   {
     name: 'veg regular thali',
@@ -263,6 +286,7 @@ export const menuItems = [
       'A balanced regular thali with everyday classics—dal, sabzi, rice, and Indian bread.',
     link: '/menu/indian/large-plates/veg-regular-thali/',
     category: 'large-plates',
+    type: 'veg',
   },
   {
     name: 'veg special thali',
@@ -273,6 +297,7 @@ export const menuItems = [
       'Chef’s special vegetarian dishes curated in one satisfying thali with dessert.',
     link: '/menu/indian/large-plates/veg-special-thali/',
     category: 'large-plates',
+    type: 'veg',
   },
   {
     name: 'paneer butter masala thali',
@@ -283,6 +308,7 @@ export const menuItems = [
       'Rich paneer butter masala paired with roti, jeera rice, salad, and sweet delight.',
     link: '/menu/indian/large-plates/paneer-butter-masala-thali/',
     category: 'large-plates',
+    type: 'veg',
   },
   {
     name: 'mala-akbari paratha',
@@ -293,6 +319,7 @@ export const menuItems = [
       'Crispy flatbread from Kerala with a long history connected to Malaysia and Arabia.',
     link: '/menu/indian/sides-breads/mala-akbari-paratha/',
     category: 'sides-breads',
+    type: 'veg',
   },
   {
     name: 'naan ki shahi tokri',
@@ -303,6 +330,7 @@ export const menuItems = [
       'A basket of our fine date, saffron, and garlic naans. Early Modern India, 1800 C.E.',
     link: '/menu/indian/sides-breads/naan-ki-shahi-tokri/',
     category: 'sides-breads',
+    type: 'veg',
   },
   {
     name: 'saffron bread',
@@ -313,6 +341,7 @@ export const menuItems = [
       'Saffron infused flatbread, a classic from post 1600s North India.',
     link: '/menu/indian/sides-breads/saffron-bread/',
     category: 'sides-breads',
+    type: 'veg',
   },
   {
     name: 'roghani naan',
@@ -323,6 +352,7 @@ export const menuItems = [
       'Crusty on the outside, soft on the inside. Topped with fennel and honey, this naan from the old streets of Peshawar is great to lap up any curry.',
     link: '/menu/indian/sides-breads/roghani-naan/',
     category: 'sides-breads',
+    type: 'veg',
   },
   {
     name: 'bunny chow',
@@ -333,6 +363,7 @@ export const menuItems = [
       'South African–Indian stuffed bread with spicy potato curry. A diaspora classic.',
     link: '/menu/indian/medium-plates/veg/bunny-chow/',
     category: 'medium-plates',
+    type: 'veg',
   },
   {
     name: "skinner's prawns",
@@ -343,6 +374,7 @@ export const menuItems = [
       'Anglo-Indian prawns grilled with coconut, chilli, and coriander. A perfect pairing with cocktails.',
     link: '/menu/indian/medium-plates/seafood/skinners-prawns/',
     category: 'medium-plates',
+    type: 'nonveg',
   },
   {
     name: 'chapshoro',
@@ -353,6 +385,7 @@ export const menuItems = [
       'traditional apricot-oil meat pie from the Himalayan highlands. Savoury and rich.',
     link: '/menu/indian/medium-plates/mutton/chapshoro/',
     category: 'medium-plates',
+    type: 'nonveg',
   },
   {
     name: 'iced caramel latte',
@@ -363,6 +396,7 @@ export const menuItems = [
       'A chilled blend of espresso, milk, and luscious caramel syrup over ice.',
     link: '/menu/drinks/iced-caramel-latte/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'iced americano himalayan blend',
@@ -373,6 +407,7 @@ export const menuItems = [
       'Bold Himalayan espresso with chilled water over ice, smooth and invigorating.',
     link: '/menu/drinks/iced-americano-himalayan-blend/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'pineapple juice',
@@ -383,6 +418,7 @@ export const menuItems = [
       'Freshly pressed pineapple juice, tropical and tangy with every sip.',
     link: '/menu/drinks/pineapple-juice/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'water melon juice',
@@ -392,6 +428,7 @@ export const menuItems = [
     description: 'Cool and hydrating watermelon juice, perfect for hot days.',
     link: '/menu/drinks/water-melon-juice/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'hydrator',
@@ -402,6 +439,7 @@ export const menuItems = [
       'A revitalizing blend of watermelon, lemon, and mint. Perfect for rehydration.',
     link: '/menu/drinks/hydrator/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'power punch',
@@ -412,6 +450,7 @@ export const menuItems = [
       'An immunity-boosting juice with lemon, ginger, turmeric, honey, and chia seeds.',
     link: '/menu/drinks/power-punch/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'energizer',
@@ -422,6 +461,7 @@ export const menuItems = [
       'Nutrient-rich mix of apple, beetroot, carrot, lemon, and ginger.',
     link: '/menu/drinks/energizer/',
     category: 'drinks',
+    type: 'veg',
   },
   {
     name: 'zulbiya - kundalika',
@@ -432,6 +472,7 @@ export const menuItems = [
       'Crispy twirled dough fried and dipped in saffron and rosewater syrup, served with warm saffron milk. Ancestor of the modern Jalebi. *Priyamkarrnrpakatha* by Jinasura, 1450 C.E.',
     link: '/menu/desserts/zulbiya-kundalika/',
     category: 'desserts',
+    type: 'veg',
   },
   {
     name: 'madhu apupa',
@@ -442,6 +483,7 @@ export const menuItems = [
       'Barley pancakes fried in ghee, topped with honey caramel, sliced bananas, and sesame seeds. Mentioned in the *Rig Veda*, 1500 B.C.E.',
     link: '/menu/desserts/madhu-apupa/',
     category: 'desserts',
+    type: 'veg',
   },
   {
     name: 'chocolate mousseline',
@@ -452,6 +494,7 @@ export const menuItems = [
       "Our vegan take on the classic dessert invented by Menon. Light, fluffy, and sugar-free. *La science du maître d'hôtel confiseur*, 1700 C.E.",
     link: '/menu/desserts/chocolate-mousseline/',
     category: 'desserts',
+    type: 'veg',
   },
   {
     name: 'gulab jamun',
@@ -462,5 +505,6 @@ export const menuItems = [
       "Iconic dessert combining Farsi 'gol-ab' (rose water) and Sanskrit 'jamun'. A sweet result of Indo-Persian culinary harmony.",
     link: '/menu/desserts/gulab-jamun/',
     category: 'desserts',
+    type: 'veg',
   },
 ];
