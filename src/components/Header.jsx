@@ -8,14 +8,12 @@ export default function Header() {
   const { tableId, category } = useParams();
   const activeRef = useRef(null);
 
-  // ✅ Find active category
   const activeIndex = MenuOption.findIndex(
     item => item.url === category || (!category && item.url === 'home')
   );
 
   let reorderedCategories = [...MenuOption];
 
-  // ✅ Only reorder if activeIndex is valid and not "all"
   if (
     activeIndex > -1 &&
     MenuOption[activeIndex].url !== 'home' // don't move "all"
@@ -24,7 +22,6 @@ export default function Header() {
     reorderedCategories.splice(1, 0, activeItem); // put active at 2nd
   }
 
-  // ✅ Scroll into view when active changes
   useEffect(() => {
     if (activeRef.current) {
       activeRef.current.scrollIntoView({
@@ -37,12 +34,10 @@ export default function Header() {
 
   return (
     <header id="sticky-header" className="header">
-      {/* Banner */}
       <div className="table-banner">
         🍽️ You are placing an order for <strong>Table {tableId}</strong>
       </div>
 
-      {/* Logo + Name */}
       <div className="header-top">
         <div className="logo-section">
           <img src={Img} alt="Debuggers Da Dhabba" className="logo" />
@@ -50,7 +45,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Categories */}
       <section className="categories">
         <div className="categories-container">
           {reorderedCategories.map((item, index) => {
@@ -60,7 +54,7 @@ export default function Header() {
             return (
               <div
                 key={index}
-                ref={isActive ? activeRef : null} // 👈 attach ref only to active
+                ref={isActive ? activeRef : null}
                 className={`category ${isActive ? 'active' : ''}`}
               >
                 <Link
