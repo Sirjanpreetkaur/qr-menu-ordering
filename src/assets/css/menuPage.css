@@ -186,6 +186,7 @@
   align-items: center;
   justify-content: space-between;
   height: 45px;
+  margin-top: 16px;
 }
 
 .logo-section {
@@ -354,7 +355,7 @@
 } */
 
 .menu-grid-wrapper {
-  padding-bottom: 100px;
+  margin-top: 236px;
 }
 
 .menu-grid-section {
@@ -1107,6 +1108,9 @@
 
 /* Mobile responsive styles */
 @media screen and (max-width: 768px) {
+  .menu-grid-wrapper {
+    margin-top: 260px;
+  }
   .menu-card-img {
     width: auto;
     height: auto;
