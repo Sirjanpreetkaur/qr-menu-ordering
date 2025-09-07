@@ -10,6 +10,7 @@ import MenuPage from './components/MenuPage';
 import ReactGA from 'react-ga4';
 import MenuImagePage from './components/MenuImage';
 import OrderSuccess from './components/OrderSuccess';
+import FailedPaymentRedirect from './components/failedPayment';
 
 ReactGA.initialize('G-0YX9MCJ4PF', { send_page_view: false });
 
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/menu/:tableId/:category" element={<MenuPage />} />
         <Route path="/menu" element={<MenuImagePage />} />
         <Route path="/payment-success" element={<OrderSuccess />} />
+        <Route path="/failed-payment" element={<FailedPaymentRedirect />} />
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </Router>

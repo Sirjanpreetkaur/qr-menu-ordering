@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { FaPlus, FaMinus, FaInfoCircle } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
+import ReactGA from 'react-ga4';
 
 export default function CartDrawer({
   cartItems,
@@ -99,6 +100,10 @@ export default function CartDrawer({
 
   const proceedCheckout = e => {
     e.stopPropagation();
+    ReactGA.event('capture_checkout_click', {
+      category: 'engagement',
+      label: 'Checkout Button',
+    });
     setShowTestAlert(false);
     onCheckout();
   };
@@ -216,7 +221,7 @@ export default function CartDrawer({
                 )}
               </div>
             </div>
-            <button className="checkout-btn" onClick={handleCheckoutClick}>
+            <button className="checkout-btn" onClick={proceedCheckout}>
               Checkout
             </button>
           </div>

@@ -115,15 +115,14 @@ export default function MenuPage() {
       modal: {
         ondismiss: function () {
           console.warn('⚠️ Razorpay payment popup was closed by the user.');
-          alert('Payment window closed. You can retry payment from your cart.');
-          setIsCartOpen(true);
+          navigate('/failed-payment');
         },
       },
     };
 
     const rzp = new window.Razorpay(options);
     rzp.on('payment.failed', function (response) {
-      console.error('Payment failed:', response.error);
+      navigate('/failed-payment');
     });
 
     rzp.open();
