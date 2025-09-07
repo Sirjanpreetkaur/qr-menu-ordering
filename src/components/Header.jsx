@@ -3,7 +3,7 @@ import '../assets/css/menuPage.css';
 import { MenuOption } from '../data/menuData.jsx';
 import { useParams, Link } from 'react-router-dom';
 import Img from '../../src/assets/images/Dhabba_Logo.jpeg';
-import LoginPopup from './loginPopup';
+import LoginPopup from './LoginPopup';
 import ReactGA from 'react-ga4';
 
 export default function Header() {
